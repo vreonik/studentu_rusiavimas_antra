@@ -26,9 +26,9 @@ void spausdinti_perziura(const Container& visi_stud, char pasirinkimas, int limi
     int kiek = 0;
     for (const auto &s : visi_stud) {
         if (kiek++ >= limitas) break;
-        auto [gvid, gmed] = skaiciuoti_galutinius(s);
-        std::cout << std::left << std::setw(15) << s.vard
-                  << std::left << std::setw(15) << s.pav;
+        auto [gvid, gmed] = s.skaiciuotiGalutinius();
+        std::cout << std::left << std::setw(15) << s.getVardas()
+                  << std::left << std::setw(15) << s.getPavarde();
         if (pasirinkimas == 'v' || pasirinkimas == 'V')
             std::cout << std::left << std::setw(20) << std::fixed << std::setprecision(2) << gvid;
         else if (pasirinkimas == 'm' || pasirinkimas == 'M')
@@ -56,12 +56,10 @@ void klasifikuoti_ir_irasyti(const Container &visi_stud,
     using namespace std::chrono;
     auto pradzia = high_resolution_clock::now();
 
-    // Sukuriame laikinus konteinerius
     std::vector<Studentas> vargsiukai, kietakiai;
 
-    // Skirstome studentus
     for (const auto &s : visi_stud) {
-        auto [galut_vid, galut_med] = skaiciuoti_galutinius(s);
+        auto [galut_vid, galut_med] = s.skaiciuotiGalutinius();
         double galutinis = (pasirinkimas == 'v' || pasirinkimas == 'V') ? galut_vid :
                           (pasirinkimas == 'm' || pasirinkimas == 'M') ? galut_med :
                           (galut_vid + galut_med) / 2.0;
@@ -77,17 +75,16 @@ void klasifikuoti_ir_irasyti(const Container &visi_stud,
 
     auto rusiavimo_pradzia = high_resolution_clock::now();
 
-    // Rikiuojame pagal pasirinktą kriterijų
     auto rikiuoti = [rikiuoti_kriterijus](const Studentas &a, const Studentas &b) {
-        auto [a_vid, a_med] = skaiciuoti_galutinius(a);
-        auto [b_vid, b_med] = skaiciuoti_galutinius(b);
+        auto [a_vid, a_med] = a.skaiciuotiGalutinius();
+        auto [b_vid, b_med] = b.skaiciuotiGalutinius();
         
         if (rikiuoti_kriterijus == 'v' || rikiuoti_kriterijus == 'V')
             return a_vid < b_vid;
         else if (rikiuoti_kriterijus == 'm' || rikiuoti_kriterijus == 'M')
             return a_med < b_med;
         else
-            return a.vard < b.vard;
+            return a.getVardas() < b.getVardas();
     };
 
     std::sort(vargsiukai.begin(), vargsiukai.end(), rikiuoti);
@@ -98,30 +95,28 @@ void klasifikuoti_ir_irasyti(const Container &visi_stud,
 
     auto ras_pradzia = high_resolution_clock::now();
     
-    // Įrašome į failus
     std::ofstream fv(failas_vargsiukai);
     std::ofstream fk(failas_kietakiai);
     fv << std::fixed << std::setprecision(2);
     fk << std::fixed << std::setprecision(2);
 
-    // Header'iai
     fv << "Vardas Pavarde Galutinis\n";
     fk << "Vardas Pavarde Galutinis\n";
 
     for (const auto &s : vargsiukai) {
-        auto [galut_vid, galut_med] = skaiciuoti_galutinius(s);
+        auto [galut_vid, galut_med] = s.skaiciuotiGalutinius();
         double galutinis = (pasirinkimas == 'v' || pasirinkimas == 'V') ? galut_vid :
                           (pasirinkimas == 'm' || pasirinkimas == 'M') ? galut_med :
                           (galut_vid + galut_med) / 2.0;
-        fv << s.vard << " " << s.pav << " " << galutinis << "\n";
+        fv << s.getVardas() << " " << s.getPavarde() << " " << galutinis << "\n";
     }
 
     for (const auto &s : kietakiai) {
-        auto [galut_vid, galut_med] = skaiciuoti_galutinius(s);
+        auto [galut_vid, galut_med] = s.skaiciuotiGalutinius();
         double galutinis = (pasirinkimas == 'v' || pasirinkimas == 'V') ? galut_vid :
                           (pasirinkimas == 'm' || pasirinkimas == 'M') ? galut_med :
                           (galut_vid + galut_med) / 2.0;
-        fk << s.vard << " " << s.pav << " " << galutinis << "\n";
+        fk << s.getVardas() << " " << s.getPavarde() << " " << galutinis << "\n";
     }
 
     auto ras_pabaiga = high_resolution_clock::now();
