@@ -14,27 +14,15 @@ std::vector<Studentas> nuskaityti(const std::string& failas){
 
     std::vector<Studentas> visi;
     std::string eil;
-    std::getline(fd, eil); // Praleidžiame header'į
+    std::getline(fd, eil);
 
     while (std::getline(fd, eil)) {
         if (eil.empty()) continue;
         
         std::stringstream ss(eil);
         Studentas s;
-        ss >> s.vard >> s.pav;
+        ss >> s;
         
-        int paz;
-        while (ss >> paz) {
-            s.nd.push_back(paz);
-        }
-
-        if (!s.nd.empty()) {
-            s.egzas = s.nd.back();
-            s.nd.pop_back();
-        } else {
-            s.egzas = 0;
-        }
-
         visi.push_back(s);
     }
 
@@ -50,27 +38,15 @@ std::list<Studentas> nuskaityti_i_list(const std::string& failas) {
 
     std::list<Studentas> result;
     std::string eil;
-    std::getline(fd, eil); // Praleidžiame header'į
+    std::getline(fd, eil);
 
     while (std::getline(fd, eil)) {
         if (eil.empty()) continue;
         
         std::stringstream ss(eil);
         Studentas s;
-        ss >> s.vard >> s.pav;
+        ss >> s;
         
-        int paz;
-        while (ss >> paz) {
-            s.nd.push_back(paz);
-        }
-
-        if (!s.nd.empty()) {
-            s.egzas = s.nd.back();
-            s.nd.pop_back();
-        } else {
-            s.egzas = 0;
-        }
-
         result.push_back(s);
     }
 
