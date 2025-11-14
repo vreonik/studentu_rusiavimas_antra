@@ -10,7 +10,5 @@ std::string be_priesdelio(const std::string &kelias){
 }
 
 std::pair<double, double> skaiciuoti_galutinius(const Studentas &s){
-    double vid = skaiciuoti_vidurki(s.nd);
-    double med = skaiciuoti_mediana(s.nd);
-    return {vid * 0.4 + s.egzas * 0.6, med * 0.4 + s.egzas * 0.6};
+    return s.skaiciuotiGalutinius();
 }
