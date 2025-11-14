@@ -8,7 +8,7 @@
 using namespace std::chrono;
 
 double skaiciuoti_galutini_pazymi(const Studentas& s, char pasirinkimas) {
-    auto [galut_vid, galut_med] = skaiciuoti_galutinius(s);
+    auto [galut_vid, galut_med] = s.skaiciuotiGalutinius();
     return (pasirinkimas == 'v' || pasirinkimas == 'V') ? galut_vid :
            (pasirinkimas == 'm' || pasirinkimas == 'M') ? galut_med :
            (galut_vid + galut_med) / 2.0;
@@ -28,7 +28,7 @@ size_t apskaiciuoti_atminti(const Container& container) {
     
     for (const auto& s : container) {
         total_size += sizeof(std::vector<int>) +
-                     (s.nd.capacity() * sizeof(int));
+                     (s.getNd().capacity() * sizeof(int));
     }
     
     return total_size;
