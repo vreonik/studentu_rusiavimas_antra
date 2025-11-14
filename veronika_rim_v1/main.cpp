@@ -29,7 +29,7 @@ void testuoti_strategijas();
 void naudoti_strategija_su_failu();
 
 int main() {
-    cout << "STUDENTŲ RŪŠIAVIMO SISTEMA v1.0\n";
+    cout << "STUDENTŲ RŪŠIAVIMO SISTEMA v1.1\n";
     cout << "Pasirinkite režimą:\n"
          << " f - skaityti iš failo\n"
          << " g - sugeneruoti failą\n"
@@ -37,10 +37,17 @@ int main() {
          << " t - testuoti konteinerius\n"
          << " s - strategijų palyginimas\n"
          << " n - naudoti konkrečią strategiją\n"
+         << " x - testuoti struct vs class spartą\n"
          << " Pasirinkimas: ";
 
     char rez;
     cin >> rez;
+
+    if (rez == 'x' || rez == 'X') {
+        cout << "STRUCT vs CLASS SPRARTOS TESTAVIMAS\n";
+        system("./test_struct_vs_class");
+        return 0;
+    }
 
     if (rez == 's' || rez == 'S') {
         testavimo_rezimas = true;
@@ -59,12 +66,15 @@ int main() {
         cout << "Konteinerių palyginimo pasirinkimas:\n"
              << " s - sugeneruoti naujus failus\n"
              << " e - naudoti esamą failą\n"
+             << " o - optimizavimo testas\n"
              << " Pasirinkimas: ";
         char palyginimo_tipas;
         cin >> palyginimo_tipas;
         
         if (palyginimo_tipas == 'e' || palyginimo_tipas == 'E') {
             testuoti_konteinerius_su_pasirinktu_failu();
+        } else if (palyginimo_tipas == 'o' || palyginimo_tipas == 'O') {
+            system("./test_optimization.sh");
         } else {
             testuoti_konteinerius_sugeneruotus();
         }
