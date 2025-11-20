@@ -1,4 +1,4 @@
-Studentų Rūšiavimo Sistema v1.0
+Studentų Rūšiavimo Sistema v1.1
 
 Release Istorija:
 v0.1 (2025-09-25) - pradinė versija:
@@ -169,6 +169,58 @@ Testavimo Metodologija
 -Naudoti failai: 1K, 10K, 100K, 1M, 10M įrašų
 -Kiekvienas studentas turi 5 ND pažymius + egzaminą
 
+v1.1(2025-11-20):
+Atnaujinta versija su class implementacija, optimizavimo testais ir išsamiu struct vs class
+palyginimu.Optimizavimo flag'ų testavimas (O0, O1, O2, O3). 
+
+Struct vs Class Spartos Palyginimas:
+
+Testavimo Sąlygos:
+Strategija 3
+Konteineris: std::vector
+Testavimo metodas: 3 kartų vidurkis
+
+
+Rezultatai:
+
+Dydis      Tipas    Skaitymas (ms)    Skirstymas (ms)    Bendras (ms)    Vargsiukai    Kietakiai
+1,000      struct      5                  0                 6               424          576
+1,000      class       4                  0                 5               424          576
+10,000     struct     30                  7                 38             4,188        5,812
+10,000     class      30                  7                 39             4,188        5,812
+100,000    struct     302                 72                375            41,453       58,547
+100,000    class      302                 72                398            41,453       58,547
+1,000,000  struct     3,097               740               3,846         413,263      586,737
+1,000,000  class      3,121               727               4,079         413,263      586,737
+
+Greičio Skirtumai (Bendras Laikas):
+Dydis    Struct (ms)    Class (ms)    Skirtumas    Procentais
+1,000       6              5            -1 ms       -16.7%
+10,000      38             39           +1 ms       +2.6%
+100,000    375             398         +23 ms       +6.1%
+1,000,000  3,846          4,079        +233 ms      +6.1%
+Išvada: Class yra ~6% lėtesnė už Struct didesniems duomenų kiekiams
+
+Optimizavimo Flag'ų Testavimas:
+Optimizavimo testavimas:
+chmod +x test_optimization.sh
+./test_optimization.sh
+
+Duomenų kiekis: 100,000 ir 1,000,000 studentų
+
+Rezultatai (1,000,000 studentų):
+Optimizavimas    Struct (ms)    Class (ms)    Skirtumas    EXE Dydis
+O0                 3,611          3,865        +254 ms      246 KB
+O1                  989           1,014         +25 ms      86 KB
+O2                  989            991           +2 ms      86 KB
+O3                 1,009           997          -12 ms      85 KB
+
+
+Išvados:
+Optimizavimas ženkliai pagerina našumą.
+O2 lygis yra optimalus tarp greičio ir stabilumo.
+
+
 Autorius
-Veronika Rim - Vilniaus Universitetas, Duomenų mokslas.
+Veronika Rimlevičiūtė - Vilniaus Universitetas, Duomenų mokslas.
 
