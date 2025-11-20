@@ -63,3 +63,9 @@ public:
 //papildomos funkcijos
 void demonstruotiRuleOfThree();
 void demonstruotiIOMetodus();
+void demonstruotiVisusRežimus();
+void demonstruotiRankiniĮvedimą();
+void demonstruotiAutomatiniGeneravimą();
+void demonstruotiĮvestįIšFailo();
+void demonstruotiIšvestįĮFailą();
+void paleistiVisusRežimus();

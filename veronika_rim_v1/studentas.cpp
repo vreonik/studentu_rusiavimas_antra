@@ -274,18 +274,60 @@ void demonstruotiAutomatiniGeneravimą() {
 void demonstruotiĮvestįIšFailo() {
     std::cout << "\n=== ĮVESTIS IŠ FAILO ===\n";
     
-    //Laikinas failas TIK demonstracijai
     std::string failoVardas = "demo_studentai.txt";
     std::ofstream failas(failoVardas);
-    failas << "Vardas1 Pavarde1 8 9 7 6 10 9\n";
-    failas << "Vardas2 Pavarde2 10 9 8 7 9 8\n";
-    failas << "Vardas3 Pavarde3 7 6 8 9 10 7\n";
+    
+    failas << "Vardas Pavarde";
+    for (int i = 1; i <= 5; i++) failas << " ND" << i;
+    failas << " Egzaminas\n";
+    
+    failas << "Jonas Jonaitis 8 9 7 6 10 9\n";
+    failas << "Ona Onaite 10 9 8 7 9 8\n";
+    failas << "Petras Petraitis 7 6 8 9 10 7\n";
     failas.close();
     
-    std::cout << "Sukurtas demonstracinis failas: " << failoVardas << "\n";
+    std::cout << " Sukurtas demonstracinis failas: " << failoVardas << "\n";
     
-    //Nuskaitome iš failo
-    auto studentai = nuskaityti(failoVardas);
+    std::vector<Studentas> studentai;
+    
+    std::ifstream skaitomasFailas(failoVardas);
+    if (!skaitomasFailas) {
+        std::cout << " Klaida: Nepavyko atidaryti failo!\n";
+        return;
+    }
+
+    std::string eilute;
+    std::getline(skaitomasFailas, eilute);
+    
+    int studentuSk = 0;
+    while (std::getline(skaitomasFailas, eilute)) {
+        if (eilute.empty()) continue;
+        
+        std::stringstream ss(eilute);
+        Studentas s;
+        std::string vardas, pavarde;
+        
+        ss >> vardas >> pavarde;
+        s.setVardas(vardas);
+        s.setPavarde(pavarde);
+        
+        std::vector<int> nd;
+        int pazymys;
+        while (ss >> pazymys) {
+            nd.push_back(pazymys);
+        }
+        
+        if (!nd.empty()) {
+            s.setEgzas(nd.back());
+            nd.pop_back();
+            s.setNd(nd);
+        }
+        
+        studentai.push_back(s);
+        studentuSk++;
+    }
+    
+    skaitomasFailas.close();
     
     std::cout << "Sėkmingai nuskaityta " << studentai.size() << " studentų:\n";
     for(size_t i = 0; i < studentai.size(); ++i) {
@@ -293,9 +335,9 @@ void demonstruotiĮvestįIšFailo() {
         std::cout << studentai[i] << "\n\n";
     }
     
-    //Išvalome
     std::remove(failoVardas.c_str());
 }
+
 
 void demonstruotiIšvestįĮFailą() {
     std::cout << "\n=== IŠVESTIS Į FAILĄ ===\n";

@@ -29,7 +29,7 @@ void testuoti_strategijas();
 void naudoti_strategija_su_failu();
 
 int main() {
-    cout << "🎓 STUDENTŲ RŪŠIAVIMO SISTEMA v1.2\n";
+    cout << "STUDENTŲ RŪŠIAVIMO SISTEMA v1.2\n";
     cout << "Pasirinkite režimą:\n"
          << " f - skaityti iš failo\n"
          << " g - sugeneruoti failą\n"
@@ -38,17 +38,14 @@ int main() {
          << " s - strategijų palyginimas\n"
          << " n - naudoti konkrečią strategiją\n"
          << " x - testuoti struct vs class spartą\n"
-         << " d - demonstruoti Rule of Three ir I/O operatorius (v1.2)\n" 
+         << " d - demonstracinė programa (Rule of Three + I/O operatoriai)\n"
          << " Pasirinkimas: ";
 
     char rez;
     cin >> rez;
 
     if (rez == 'd' || rez == 'D') {
-        cout << "\n";
-        demonstruotiRuleOfThree();
-        cout << "\n";
-        demonstruotiIOMetodus();
+        demonstruotiVisusRežimus();
         return 0;
     }
 
