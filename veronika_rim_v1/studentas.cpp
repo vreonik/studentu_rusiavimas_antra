@@ -4,6 +4,7 @@
 #include <sstream>
 #include <random>
 #include <limits>
+#include <fstream>
 
 //Konstruktoriai
 Studentas::Studentas() : vardas_(""), pavarde_(""), egzas_(0) {
@@ -21,7 +22,7 @@ Studentas::Studentas(const std::string& vardas, const std::string& pavarde,
     std::cout << "Iškviestas pilnas konstruktorius (" << this << ")\n";
 }
 
-// === RULE OF FIVE ===
+//Rule of five
 Studentas::Studentas(const Studentas& other)
     : vardas_(other.vardas_), pavarde_(other.pavarde_),
       nd_(other.nd_), egzas_(other.egzas_) {
@@ -34,6 +35,8 @@ Studentas::Studentas(Studentas&& other) noexcept
       nd_(std::move(other.nd_)),
       egzas_(other.egzas_) {
     other.egzas_ = 0;
+    other.vardas_.clear();
+    other.pavarde_.clear();
     std::cout << "Iškviestas MOVE konstruktorius (" << this << " iš " << &other << ")\n";
 }
 
@@ -56,6 +59,8 @@ Studentas& Studentas::operator=(Studentas&& other) noexcept {
         nd_ = std::move(other.nd_);
         egzas_ = other.egzas_;
         other.egzas_ = 0;
+        other.vardas_.clear();
+        other.pavarde_.clear();
     }
     return *this;
 }
@@ -66,13 +71,13 @@ Studentas::~Studentas() {
 
 //Skaiciavimo metodai
 double Studentas::skaiciuotiVidurki() const {
-    if(nd_.empty()) return 0;
+    if(nd_.empty()) return 0.0;
     double sum = std::accumulate(nd_.begin(), nd_.end(), 0.0);
     return sum / nd_.size();
 }
 
 double Studentas::skaiciuotiMediana() const {
-    if(nd_.empty()) return 0;
+    if(nd_.empty()) return 0.0;
     std::vector<int> temp_nd = nd_;
     std::sort(temp_nd.begin(), temp_nd.end());
     size_t size = temp_nd.size();
@@ -104,7 +109,10 @@ bool Studentas::operator>(const Studentas& other) const {
 }
 
 bool Studentas::operator==(const Studentas& other) const {
-    return vardas_ == other.vardas_ && pavarde_ == other.pavarde_;
+    return vardas_ == other.vardas_ &&
+           pavarde_ == other.pavarde_ &&
+           egzas_ == other.egzas_ &&
+           nd_ == other.nd_;
 }
 
 bool Studentas::operator!=(const Studentas& other) const {
@@ -124,7 +132,8 @@ std::istream& operator>>(std::istream& is, Studentas& studentas) {
     studentas.nd_.clear();
     std::cout << "Įveskite ND pažymius (baigti su 0): ";
     int pazymys;
-    while (is >> pazymys && pazymys != 0) {
+    while (is >> pazymys) {
+        if (pazymys == 0) break;
         if (pazymys >= 1 && pazymys <= 10) {
             studentas.nd_.push_back(pazymys);
             std::cout << "Įvestas: " << pazymys << " (kitas arba 0 baigti): ";
@@ -170,7 +179,7 @@ std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
     return os;
 }
 
-//papildomi metodai
+//Papildomi metodai
 void Studentas::isvalytiDuomenis() {
     vardas_.clear();
     pavarde_.clear();
@@ -197,7 +206,7 @@ void Studentas::spausdintiInformacija() const {
     std::cout << *this << "\n";
 }
 
-//tam kad demonstruoti, bet istiesu tai demonstruoji rule of five nes geresne
+//Demonstration
 void demonstruotiRuleOfThree() {
     std::cout << "\n ===== RULE OF THREE/FIVE DEMONSTRAVIMAS =====\n\n";
     
@@ -208,55 +217,210 @@ void demonstruotiRuleOfThree() {
     s1.setEgzas(8);
     std::cout << s1 << "\n\n";
     
-    std::cout << "2. COPY KONSTRUKTORIUS (s1 ->s2):\n";
+    std::cout << "2. COPY KONSTRUKTORIUS (s1 → s2):\n";
     Studentas s2 = s1;
     std::cout << s2 << "\n\n";
     
-    std::cout << "3. COPY ASSIGNMENT (s2 -> s3):\n";
+    std::cout << "3. COPY ASSIGNMENT (s2 → s3):\n";
     Studentas s3;
     s3 = s2;
     std::cout << s3 << "\n\n";
     
-    std::cout << "4.  MOVE KONSTRUKTORIUS (s1 -> s4):\n";
+    std::cout << "4. MOVE KONSTRUKTORIUS (s1 → s4):\n";
     Studentas s4 = std::move(s1);
-    std::cout << s4 << "\n\n";
+    std::cout << "s4 po move:\n" << s4 << "\n";
+    std::cout << "s1 po move (turėtų būti tuščias):\n";
+    std::cout << "Vardas: '" << s1.getVardas() << "', Pavardė: '" << s1.getPavarde()
+              << "', Egzas: " << s1.getEgzas() << "\n\n";
     
-    std::cout << "5. MOVE ASSIGNMENT (s4 -> s5):\n";
+    std::cout << "5. MOVE ASSIGNMENT (s4 → s5):\n";
     Studentas s5;
     s5 = std::move(s4);
-    std::cout << s5 << "\n\n";
+    std::cout << "s5 po move:\n" << s5 << "\n";
+    std::cout << "s4 po move (turėtų būti tuščias):\n";
+    std::cout << "Vardas: '" << s4.getVardas() << "', Pavardė: '" << s4.getPavarde()
+              << "', Egzas: " << s4.getEgzas() << "\n\n";
     
     std::cout << "6. PALYGINIMO OPERATORIAI:\n";
     std::cout << "s2 == s3: " << (s2 == s3 ? "TAIP" : "NE") << "\n";
     std::cout << "s2 != s5: " << (s2 != s5 ? "TAIP" : "NE") << "\n";
-    std::cout << "s2 < s5:  " << (s2 < s5 ? "TAIP" : "NE") << "\n\n";
+    std::cout << "s2 < s5:  " << (s2 < s5 ? "TAIP" : "NE") << "\n";
+    std::cout << "s2 > s5:  " << (s2 > s5 ? "TAIP" : "NE") << "\n\n";
     
-    std::cout << " RULE OF THREE/FIVE DEMONSTRAVIMAS BAIGTAS!\n";
+    std::cout << "RULE OF THREE/FIVE DEMONSTRAVIMAS BAIGTAS!\n";
 }
 
-void demonstruotiIOMetodus() {
-    std::cout << "\n ===== I/O OPERATORIŲ DEMONSTRAVIMAS =====\n\n";
+void demonstruotiRankiniĮvedimą() {
+    std::cout << "\n=== RANKINIS ĮVEDIMAS ===\n";
     
-    std::cout << "1. RANKINIS ĮVEDIMAS:\n";
-    Studentas s1;
-    std::cin >> s1;
-    std::cout << "\n" << s1 << "\n\n";
+    Studentas studentas;
+    std::cout << "Įveskite studento duomenis:\n";
+    std::cin >> studentas;
     
-    std::cout << "2. AUTOMATINIS GENERAVIMAS:\n";
+    std::cout << "\nĮVESTAS STUDENTAS:\n";
+    std::cout << studentas << "\n";
+}
+
+void demonstruotiAutomatiniGeneravimą() {
+    std::cout << "\n=== AUTOMATINIS GENERAVIMAS ===\n";
+    
+    Studentas studentas("Generated", "Student");
+    studentas.generuotiPazymius(5);
+    
+    std::cout << "SUGENERUOTAS STUDENTAS:\n";
+    std::cout << studentas << "\n";
+}
+
+void demonstruotiĮvestįIšFailo() {
+    std::cout << "\n=== ĮVESTIS IŠ FAILO ===\n";
+    
+    //Laikinas failas TIK demonstracijai
+    std::string failoVardas = "demo_studentai.txt";
+    std::ofstream failas(failoVardas);
+    failas << "Vardas1 Pavarde1 8 9 7 6 10 9\n";
+    failas << "Vardas2 Pavarde2 10 9 8 7 9 8\n";
+    failas << "Vardas3 Pavarde3 7 6 8 9 10 7\n";
+    failas.close();
+    
+    std::cout << "Sukurtas demonstracinis failas: " << failoVardas << "\n";
+    
+    //Nuskaitome iš failo
+    auto studentai = nuskaityti(failoVardas);
+    
+    std::cout << "Sėkmingai nuskaityta " << studentai.size() << " studentų:\n";
+    for(size_t i = 0; i < studentai.size(); ++i) {
+        std::cout << "Studentas " << i+1 << ":\n";
+        std::cout << studentai[i] << "\n\n";
+    }
+    
+    //Išvalome
+    std::remove(failoVardas.c_str());
+}
+
+void demonstruotiIšvestįĮFailą() {
+    std::cout << "\n=== IŠVESTIS Į FAILĄ ===\n";
+    
+    //Sukuriame keletą studentų
+    std::vector<Studentas> studentai;
+    
+    Studentas s1("Jonas", "Jonaitis");
+    s1.setNd({8, 9, 7});
+    s1.setEgzas(8);
+    
     Studentas s2("Ona", "Onaite");
-    s2.generuotiPazymius(5);
-    std::cout << s2 << "\n\n";
+    s2.setNd({10, 9, 8});
+    s2.setEgzas(9);
     
-    std::cout << "3. ĮVESTIS IŠ FAILO (SIMULIACIJA):\n";
     Studentas s3("Petras", "Petraitis");
-    std::vector<int> failo_nd = {6, 7, 8, 9, 10};
-    s3.setNd(failo_nd);
-    s3.setEgzas(8);
-    std::cout << s3 << "\n\n";
+    s3.generuotiPazymius(4);
     
-    std::cout << "4. IŠVESTIS Į FAILĄ (SIMULIACIJA):\n";
-    std::cout << "Studentas būtų išvestas į failą:\n";
-    std::cout << s3 << "\n\n";
+    studentai.push_back(s1);
+    studentai.push_back(s2);
+    studentai.push_back(s3);
     
-    std::cout << " I/O OPERATORIŲ DEMONSTRAVIMAS BAIGTAS!\n";
+    //Išvedame į failą
+    std::string failoVardas = "studentu_rezultatai.txt";
+    std::ofstream rezultatai(failoVardas);
+    
+    rezultatai << "STUDENTŲ REZULTATAI\n";
+    rezultatai << "===================\n\n";
+    
+    for(size_t i = 0; i < studentai.size(); ++i) {
+        rezultatai << "Studentas " << i+1 << ":\n";
+        auto [vid, med] = studentai[i].skaiciuotiGalutinius();
+        rezultatai << "Vardas: " << studentai[i].getVardas() << "\n";
+        rezultatai << "Pavardė: " << studentai[i].getPavarde() << "\n";
+        rezultatai << "ND pažymiai: ";
+        
+        for(size_t j = 0; j < studentai[i].getNd().size(); ++j) {
+            rezultatai << studentai[i].getNd()[j];
+            if (j < studentai[i].getNd().size() - 1) rezultatai << ", ";
+        }
+        
+        rezultatai << "\nEgzamino pažymys: " << studentai[i].getEgzas() << "\n";
+        rezultatai << "Galutinis balas: " << std::fixed << std::setprecision(2) << vid << " (vidurkis)\n";
+        rezultatai << "Galutinis balas: " << med << " (mediana)\n";
+        rezultatai << "------------------------\n\n";
+    }
+    
+    rezultatai.close();
+    
+    std::cout << "Studentų duomenys sėkmingai išvesti į failą: " << failoVardas << "\n";
+    
+    // Parodome failo turinį
+    std::cout << "Failo turinys:\n";
+    std::ifstream skaitymas(failoVardas);
+    std::string eilute;
+    while(std::getline(skaitymas, eilute)) {
+        std::cout << eilute << "\n";
+    }
+    skaitymas.close();
+}
+
+void paleistiVisusRežimus() {
+    std::cout << "\n===== VISI REŽIMAI IŠ EILĖS =====\n";
+    
+    std::cout << "\n1. RULE OF THREE/FIVE:\n";
+    demonstruotiRuleOfThree();
+    
+    std::cout << "\n2. RANKINIS ĮVEDIMAS:\n";
+    demonstruotiRankiniĮvedimą();
+    
+    std::cout << "\n3. AUTOMATINIS GENERAVIMAS:\n";
+    demonstruotiAutomatiniGeneravimą();
+    
+    std::cout << "\n4. ĮVESTIS IŠ FAILO:\n";
+    demonstruotiĮvestįIšFailo();
+    
+    std::cout << "\n5. IŠVESTIS Į FAILĄ:\n";
+    demonstruotiIšvestįĮFailą();
+    
+    std::cout << "\n VISI REŽIMAI SĖKMINGAI PABAIGTI!\n";
+}
+
+void demonstruotiVisusRežimus() {
+    std::cout << "\n===== VISI ĮVEDIMO/IŠVEDIMO BŪDAI =====\n\n";
+    
+    int pasirinkimas;
+    do {
+        std::cout << "Pasirinkite demonstracinį režimą:\n";
+        std::cout << "1 - Rule of Three/Five demonstracija\n";
+        std::cout << "2 - Rankinis įvedimas\n";
+        std::cout << "3 - Automatinis generavimas\n";
+        std::cout << "4 - Įvestis iš failo\n";
+        std::cout << "5 - Išvestis į failą\n";
+        std::cout << "6 - Visi režimai iš eilės\n";
+        std::cout << "0 - Grįžti į pagrindinį meniu\n";
+        std::cout << "Pasirinkimas: ";
+        
+        std::cin >> pasirinkimas;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        
+        switch(pasirinkimas) {
+            case 1:
+                demonstruotiRuleOfThree();
+                break;
+            case 2:
+                demonstruotiRankiniĮvedimą();
+                break;
+            case 3:
+                demonstruotiAutomatiniGeneravimą();
+                break;
+            case 4:
+                demonstruotiĮvestįIšFailo();
+                break;
+            case 5:
+                demonstruotiIšvestįĮFailą();
+                break;
+            case 6:
+                paleistiVisusRežimus();
+                break;
+            case 0:
+                std::cout << "Grįžtama į pagrindinį meniu...\n";
+                break;
+            default:
+                std::cout << "Netinkamas pasirinkimas!\n";
+        }
+        std::cout << "\n";
+    } while(pasirinkimas != 0);
 }
