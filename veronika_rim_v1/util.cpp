@@ -8,7 +8,3 @@ std::string be_priesdelio(const std::string &kelias){
     if (taskas == std::string::npos) return vardas;
     return vardas.substr(0, taskas);
 }
-
-std::pair<double, double> skaiciuoti_galutinius(const Studentas &s){
-    return s.skaiciuotiGalutinius();
-}

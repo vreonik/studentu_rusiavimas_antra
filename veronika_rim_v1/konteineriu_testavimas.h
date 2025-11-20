@@ -3,7 +3,7 @@
 #include <vector>
 #include <list>
 #include "studentas.h"
-#include "strategijos.h" // PRIDĖTI ŠITĄ!
+#include "strategijos.h"
 
 void testuoti_konteinerius_su_failu(const std::string& fname);
 void testuoti_konteinerius_sugeneruotus();
@@ -14,3 +14,5 @@ void testuoti_strategijas_su_visais_dydziais();
 
 void atlikti_isamiai_analize(const std::string& fname, int testu_kartai = 3);
 void palyginti_strategijas_pagal_dydi();
+
+void testuoti_struct_vs_class();

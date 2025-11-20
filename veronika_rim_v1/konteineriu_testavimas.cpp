@@ -99,7 +99,7 @@ void testuoti_strategija_su_vidurkiu(const string& fname,
 }
 
 void testuoti_visas_strategijas(const string& fname) {
-    char b = 'v';  // vidurkis
+    char b = 'v';
     int testu_kartai = 3;
     
     cout << "\n=== STRATEGIJŲ PALYGINIMAS ===\n";
@@ -412,4 +412,5 @@ void palyginti_strategijas_pagal_dydi() {
     
     rezultatai.close();
     cout << "\nRezultatai išsaugoti į: strategiju_palyginimas_pagal_dydi.csv\n";
+    
 }

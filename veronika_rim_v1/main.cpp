@@ -44,8 +44,7 @@ int main() {
     cin >> rez;
 
     if (rez == 'x' || rez == 'X') {
-        cout << "STRUCT vs CLASS SPRARTOS TESTAVIMAS\n";
-        system("./test_struct_vs_class");
+        testuoti_struct_vs_class();
         return 0;
     }
 
@@ -340,3 +339,4 @@ void testuoti_programa() {
         apdoroti_faila<list<Studentas>>(fname, 'v', 'v');
     }
 }
+

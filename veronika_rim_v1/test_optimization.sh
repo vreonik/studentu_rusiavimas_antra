@@ -1,4 +1,4 @@
-echo "=== OPTIMIZAVIMO FLAG'Ų TESTAVIMAS ==="
+echo "OPTIMIZAVIMO FLAG'Ų TESTAVIMAS"
 
 for opt_level in O0 O1 O2 O3; do
     echo "Kompiliuojama su -$opt_level..."

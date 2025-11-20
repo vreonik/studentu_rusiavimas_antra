@@ -198,6 +198,125 @@ TestoRezultatai strategija_3(std::list<Studentas>& visi_stud,
     return rez;
 }
 
+double skaiciuoti_galutini_pazymi_struct(const StudentasStruct& s, char pasirinkimas) {
+    auto [galut_vid, galut_med] = s.skaiciuotiGalutinius();
+    return (pasirinkimas == 'v' || pasirinkimas == 'V') ? galut_vid :
+           (pasirinkimas == 'm' || pasirinkimas == 'M') ? galut_med :
+           (galut_vid + galut_med) / 2.0;
+}
+
+size_t apskaiciuoti_atminti_struct(const std::vector<StudentasStruct>& container) {
+    size_t total_size = sizeof(std::vector<StudentasStruct>) +
+                       (container.capacity() * sizeof(StudentasStruct));
+    
+    for (const auto& s : container) {
+        total_size += sizeof(std::vector<int>) +
+                     (s.nd.capacity() * sizeof(int));
+    }
+    
+    return total_size;
+}
+
+TestoRezultatai strategija_1_struct(std::vector<StudentasStruct>& visi_stud,
+                                   std::vector<StudentasStruct>& vargsiukai,
+                                   std::vector<StudentasStruct>& kietakiai,
+                                   char pasirinkimas) {
+    auto start = high_resolution_clock::now();
+    
+    vargsiukai.reserve(visi_stud.size());
+    kietakiai.reserve(visi_stud.size());
+    
+    for (const auto &s : visi_stud) {
+        double galutinis = skaiciuoti_galutini_pazymi_struct(s, pasirinkimas);
+        
+        if (galutinis < 5.0)
+            vargsiukai.push_back(s);
+        else
+            kietakiai.push_back(s);
+    }
+    
+    vargsiukai.shrink_to_fit();
+    kietakiai.shrink_to_fit();
+    
+    auto end = high_resolution_clock::now();
+    
+    TestoRezultatai rez;
+    rez.skirstymo_laikas = duration_cast<milliseconds>(end - start).count();
+    rez.atmintis_vargsiukai = apskaiciuoti_atminti_struct(vargsiukai);
+    rez.atmintis_kietakiai = apskaiciuoti_atminti_struct(kietakiai);
+    rez.atmintis_bendra = rez.atmintis_vargsiukai + rez.atmintis_kietakiai;
+    return rez;
+}
+
+TestoRezultatai strategija_2_struct(std::vector<StudentasStruct>& visi_stud,
+                                   std::vector<StudentasStruct>& vargsiukai,
+                                   char pasirinkimas) {
+    auto start = high_resolution_clock::now();
+    
+    vargsiukai.reserve(visi_stud.size() / 2);
+    
+    auto is_kietakas = [pasirinkimas](const StudentasStruct& s) {
+        double galutinis = skaiciuoti_galutini_pazymi_struct(s, pasirinkimas);
+        return galutinis >= 5.0;
+    };
+    
+    auto partition_point = std::partition(visi_stud.begin(), visi_stud.end(), is_kietakas);
+    
+    vargsiukai.insert(vargsiukai.end(),
+                     std::make_move_iterator(partition_point),
+                     std::make_move_iterator(visi_stud.end()));
+    
+    visi_stud.erase(partition_point, visi_stud.end());
+    
+    vargsiukai.shrink_to_fit();
+    visi_stud.shrink_to_fit();
+    
+    auto end = high_resolution_clock::now();
+    
+    TestoRezultatai rez;
+    rez.skirstymo_laikas = duration_cast<milliseconds>(end - start).count();
+    rez.atmintis_vargsiukai = apskaiciuoti_atminti_struct(vargsiukai);
+    rez.atmintis_kietakiai = apskaiciuoti_atminti_struct(visi_stud);
+    rez.atmintis_bendra = rez.atmintis_vargsiukai + rez.atmintis_kietakiai;
+    return rez;
+}
+
+TestoRezultatai strategija_3_struct(std::vector<StudentasStruct>& visi_stud,
+                                   std::vector<StudentasStruct>& vargsiukai,
+                                   char pasirinkimas) {
+    auto start = high_resolution_clock::now();
+    
+    vargsiukai.reserve(visi_stud.size() / 2);
+    
+    auto is_vargsiukas = [pasirinkimas](const StudentasStruct& s) {
+        double galutinis = skaiciuoti_galutini_pazymi_struct(s, pasirinkimas);
+        return galutinis < 5.0;
+    };
+    
+    auto partition_point = std::partition(visi_stud.begin(), visi_stud.end(),
+                                        [&](StudentasStruct& s) {
+                                            return !is_vargsiukas(s);
+                                        });
+    
+    vargsiukai.insert(vargsiukai.end(),
+                     std::make_move_iterator(partition_point),
+                     std::make_move_iterator(visi_stud.end()));
+    
+    visi_stud.erase(partition_point, visi_stud.end());
+    
+    vargsiukai.shrink_to_fit();
+    visi_stud.shrink_to_fit();
+    
+    auto end = high_resolution_clock::now();
+    
+    TestoRezultatai rez;
+    rez.skirstymo_laikas = duration_cast<milliseconds>(end - start).count();
+    rez.atmintis_vargsiukai = apskaiciuoti_atminti_struct(vargsiukai);
+    rez.atmintis_kietakiai = apskaiciuoti_atminti_struct(visi_stud);
+    rez.atmintis_bendra = rez.atmintis_vargsiukai + rez.atmintis_kietakiai;
+    return rez;
+}
+
 template TestoRezultatai strategija_1<std::vector<Studentas>>(
     const std::vector<Studentas>&, std::vector<Studentas>&, std::vector<Studentas>&, char);
 
