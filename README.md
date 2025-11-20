@@ -1,4 +1,4 @@
-Studentų Rūšiavimo Sistema v1.1
+Studentų Rūšiavimo Sistema v1.2
 
 Release Istorija:
 v0.1 (2025-09-25) - pradinė versija:
@@ -219,6 +219,58 @@ O3                 1,009           997          -12 ms      85 KB
 Išvados:
 Optimizavimas ženkliai pagerina našumą.
 O2 lygis yra optimalus tarp greičio ir stabilumo.
+
+v1.2 (2025-11-20):
+Nauji Funkcionalumai:
+// Copy konstruktorius
+Studentas(const Studentas& other);
+
+// Move konstruktorius  
+Studentas(Studentas&& other) noexcept;
+
+// Copy assignment operatorius
+Studentas& operator=(const Studentas& other);
+
+// Move assignment operatorius
+Studentas& operator=(Studentas&& other) noexcept;
+
+// Destruktorius
+~Studentas();
+
+Perdengti I/O Operatoriai:
+Operatorių perdengimas (operator overloading) leidžia apibrėžti, kaip C++ operatoriai (>> ir <<)
+veikia su sukurtomis klasėmis. 
+
+// Įvesties operatorius
+friend std::istream& operator>>(std::istream& is, Studentas& studentas);
+
+// Išvesties operatorius
+friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas);
+
+Demonstracinė Programa:
+
+Naujas meniu punktas 'd' - demonstracinė programa, kuri leidžia pasirinkti:
+
+Rule of Three/Five demonstracija - rodo visus 5 metodus veiksme
+
+Rankinis įvedimas - vartotojas gali įvesti studento duomenis
+
+Automatinis generavimas - sugeneruoja atsitiktinius pažymius
+
+Įvestis iš failo - nuskaito studentus iš failo
+
+Išvestis į failą - išsaugo studentus į failą
+
+Visi režimai iš eilės - paleidžia visus režimus vienu metu
+
+
+![Terminalas](images/Demonstracinis_1.png)
+![Terminalas](images/Demonstracinis_2.png)
+![Terminalas](images/Demonstracinis_3.png)
+![Terminalas](images/Demonstracinis_4.png)
+![Terminalas](images/Demonstracinis_5.png)
+![Terminalas](images/Demonstracinis_6.png)
+
 
 
 Autorius
