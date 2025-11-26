@@ -33,7 +33,7 @@ void naudoti_strategija_su_failu();
 
 int main() {
     
-    cout << "STUDENTŲ RŪŠIAVIMO SISTEMA v1.2\n";
+    cout << "STUDENTŲ RŪŠIAVIMO SISTEMA v1.5\n";
     cout << "Pasirinkite režimą:\n"
          << " f - skaityti iš failo\n"
          << " g - sugeneruoti failą\n"

@@ -7,33 +7,31 @@
 #include <fstream>
 
 //Konstruktoriai
-Studentas::Studentas() : vardas_(""), pavarde_(""), egzas_(0) {
+Studentas::Studentas() : Zmogus(), egzas_(0) {
     DEBUG_LOG("Iškviestas default konstruktorius (" << this << ")");
 }
 
 Studentas::Studentas(const std::string& vardas, const std::string& pavarde)
-    : vardas_(vardas), pavarde_(pavarde), egzas_(0) {
+    : Zmogus(vardas, pavarde), egzas_(0) {
     DEBUG_LOG("Iškviestas parametrizuotas konstruktorius (" << this << ")");
 }
 
 Studentas::Studentas(const std::string& vardas, const std::string& pavarde,
                      const std::vector<int>& nd, int egzas)
-    : vardas_(vardas), pavarde_(pavarde), nd_(nd), egzas_(egzas) {
+    : Zmogus(vardas, pavarde), nd_(nd), egzas_(egzas) {
     DEBUG_LOG("Iškviestas pilnas konstruktorius (" << this << ")");
 }
 
 //Rule of five
 Studentas::Studentas(const Studentas& other)
-    : vardas_(other.vardas_), pavarde_(other.pavarde_),
-      nd_(other.nd_), egzas_(other.egzas_),
+    : Zmogus(other), nd_(other.nd_), egzas_(other.egzas_),
       galutinis_vid_(other.galutinis_vid_),
       galutinis_med_(other.galutinis_med_) {
     DEBUG_LOG("Iškviestas COPY konstruktorius (" << this << " iš " << &other << ")");
 }
 
 Studentas::Studentas(Studentas&& other) noexcept
-    : vardas_(std::move(other.vardas_)),
-      pavarde_(std::move(other.pavarde_)),
+    : Zmogus(std::move(other)),
       nd_(std::move(other.nd_)),
       egzas_(other.egzas_),
       galutinis_vid_(other.galutinis_vid_),
@@ -41,14 +39,13 @@ Studentas::Studentas(Studentas&& other) noexcept
     other.egzas_ = 0;
     other.galutinis_vid_ = -1.0;
     other.galutinis_med_ = -1.0;
-    other.vardas_.clear();
-    other.pavarde_.clear();
     DEBUG_LOG("Iškviestas MOVE konstruktorius (" << this << " iš " << &other << ")");
 }
 
 Studentas& Studentas::operator=(const Studentas& other) {
     if (this != &other) {
         DEBUG_LOG("Iškviestas COPY assignment (" << this << " = " << &other << ")");
+        Zmogus::operator=(other);
         vardas_ = other.vardas_;
         pavarde_ = other.pavarde_;
         nd_ = other.nd_;
@@ -62,6 +59,7 @@ Studentas& Studentas::operator=(const Studentas& other) {
 Studentas& Studentas::operator=(Studentas&& other) noexcept {
     if (this != &other) {
         DEBUG_LOG("Iškviestas MOVE assignment (" << this << " = " << &other << ")");
+        Zmogus::operator=(std::move(other));
         vardas_ = std::move(other.vardas_);
         pavarde_ = std::move(other.pavarde_);
         nd_ = std::move(other.nd_);
@@ -80,6 +78,11 @@ Studentas& Studentas::operator=(Studentas&& other) noexcept {
 
 Studentas::~Studentas() {
     DEBUG_LOG("Iškviestas destruktorius (" << this << ")");
+}
+
+//Abstraktaus metodo implementacija
+void Studentas::spausdintiInformacija() const {
+    std::cout << *this << "\n";
 }
 
 //Skaiciavimo metodai
@@ -233,8 +236,7 @@ std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
 
 //Papildomi metodai
 void Studentas::isvalytiDuomenis() {
-    vardas_.clear();
-    pavarde_.clear();
+    Zmogus::isvalytiDuomenis();
     nd_.clear();
     egzas_ = 0;
     galutinis_vid_ = -1.0;
@@ -256,10 +258,6 @@ void Studentas::generuotiPazymius(int nd_kiekis) {
     galutinis_med_ = -1.0;
     
     DEBUG_LOG("Sugeneruoti " << nd_kiekis << " ND ir egzamino pažymiai (" << this << ")");
-}
-
-void Studentas::spausdintiInformacija() const {
-    std::cout << *this << "\n";
 }
 
 //Debug LOG
@@ -304,6 +302,30 @@ void demonstruotiRuleOfThree() {
     std::cout << "s2 > s5:  " << (s2 > s5 ? "TAIP" : "NE") << "\n\n";
     
     std::cout << "RULE OF THREE/FIVE DEMONSTRAVIMAS BAIGTAS!\n";
+}
+
+void demonstruotiAbstrakciaKlase() {
+    std::cout << "\n===== ABSTRAKCIOS KLASĖS DEMONSTRAVIMAS =====\n\n";
+    
+    std::cout << "1. Bandome sukurti Zmogus objektą (turi nepavykti):\n";
+    // Ši eilutę užkomentuota, nes kompiliatorius neleis:
+    // Zmogus zmogus;
+    std::cout << "Klaida: Negalima sukurti Zmogus objekto, nes klasė abstrakti!\n\n";
+    
+    std::cout << "2. Sukuriame Studentas objektą (veikia normaliai):\n";
+    Studentas studentas("Testas", "Testavimas");
+    studentas.spausdintiInformacija();
+    
+    std::cout << "\n3. Demonstruojame polimorfizmą su rodykle į bazinę klasę:\n";
+    Zmogus* zmogusPtr = &studentas;
+    std::cout << "Zmogus* rodantis į Studentas objektą:\n";
+    zmogusPtr->spausdintiInformacija();
+    
+    std::cout << "\n4. Naudojame bazinės klasės metodus per Studentas objektą:\n";
+    std::cout << "Vardas: " << studentas.getVardas() << "\n";
+    std::cout << "Pavardė: " << studentas.getPavarde() << "\n";
+    
+    std::cout << "\nABSTRAKCIOS KLASĖS DEMONSTRAVIMAS BAIGTAS!\n";
 }
 
 void demonstruotiRankiniĮvedimą() {
@@ -456,19 +478,22 @@ void demonstruotiIšvestįĮFailą() {
 void paleistiVisusRežimus() {
     std::cout << "\n===== VISI REŽIMAI IŠ EILĖS =====\n";
     
-    std::cout << "\n1. RULE OF THREE/FIVE:\n";
+    std::cout << "\n1. ABSTRAKCIOS KLASĖS DEMONSTRAVIMAS:\n";
+    demonstruotiAbstrakciaKlase();
+    
+    std::cout << "\n2. RULE OF THREE/FIVE:\n";
     demonstruotiRuleOfThree();
     
-    std::cout << "\n2. RANKINIS ĮVEDIMAS:\n";
+    std::cout << "\n3. RANKINIS ĮVEDIMAS:\n";
     demonstruotiRankiniĮvedimą();
     
-    std::cout << "\n3. AUTOMATINIS GENERAVIMAS:\n";
+    std::cout << "\n4. AUTOMATINIS GENERAVIMAS:\n";
     demonstruotiAutomatiniGeneravimą();
     
-    std::cout << "\n4. ĮVESTIS IŠ FAILO:\n";
+    std::cout << "\n5. ĮVESTIS IŠ FAILO:\n";
     demonstruotiĮvestįIšFailo();
     
-    std::cout << "\n5. IŠVESTIS Į FAILĄ:\n";
+    std::cout << "\n6. IŠVESTIS Į FAILĄ:\n";
     demonstruotiIšvestįĮFailą();
     
     std::cout << "\n VISI REŽIMAI SĖKMINGAI PABAIGTI!\n";
@@ -481,11 +506,12 @@ void demonstruotiVisusRežimus() {
     do {
         std::cout << "Pasirinkite demonstracinį režimą:\n";
         std::cout << "1 - Rule of Three/Five demonstracija\n";
-        std::cout << "2 - Rankinis įvedimas\n";
-        std::cout << "3 - Automatinis generavimas\n";
-        std::cout << "4 - Įvestis iš failo\n";
-        std::cout << "5 - Išvestis į failą\n";
-        std::cout << "6 - Visi režimai iš eilės\n";
+        std::cout << "2 - Abstrakčios klasės demonstracija\n";
+        std::cout << "3 - Rankinis įvedimas\n";
+        std::cout << "4 - Automatinis generavimas\n";
+        std::cout << "5 - Įvestis iš failo\n";
+        std::cout << "6 - Išvestis į failą\n";
+        std::cout << "7 - Visi režimai iš eilės\n";
         std::cout << "0 - Grįžti į pagrindinį meniu\n";
         std::cout << "Pasirinkimas: ";
         
@@ -497,18 +523,21 @@ void demonstruotiVisusRežimus() {
                 demonstruotiRuleOfThree();
                 break;
             case 2:
-                demonstruotiRankiniĮvedimą();
+                demonstruotiAbstrakciaKlase();
                 break;
             case 3:
-                demonstruotiAutomatiniGeneravimą();
+                demonstruotiRankiniĮvedimą();
                 break;
             case 4:
-                demonstruotiĮvestįIšFailo();
+                demonstruotiAutomatiniGeneravimą();
                 break;
             case 5:
-                demonstruotiIšvestįĮFailą();
+                demonstruotiĮvestįIšFailo();
                 break;
             case 6:
+                demonstruotiIšvestįĮFailą();
+                break;
+            case 7:
                 paleistiVisusRežimus();
                 break;
             case 0:
