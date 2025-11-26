@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <numeric>
 #include <iomanip>
-
+#include "zmogus.h"
 
 #ifdef DEBUG_MODE
     #define DEBUG_LOG(msg) std::cout << msg << "\n"
@@ -13,10 +13,8 @@
     #define DEBUG_LOG(msg)
 #endif
 
-class Studentas {
+class Studentas : public Zmogus {
 private:
-    std::string vardas_;
-    std::string pavarde_;
     std::vector<int> nd_;
     int egzas_;
     
@@ -38,21 +36,17 @@ public:
     Studentas& operator=(Studentas&& other) noexcept;
     ~Studentas();
 
-    //Getteriai
-    inline std::string getVardas() const { return vardas_; }
-    inline std::string getPavarde() const { return pavarde_; }
+    //Getter'iai - paveldimi iš Zmogus
+    using Zmogus::getVardas;
+    using Zmogus::getPavarde;
+    
     inline std::vector<int> getNd() const { return nd_; }
     inline int getEgzas() const { return egzas_; }
 
-    //Setteriai
-    inline void setVardas(const std::string& vardas) {
-        vardas_ = vardas;
-        galutinis_vid_ = -1.0;
-        galutinis_med_ = -1.0;
-    }
-    inline void setPavarde(const std::string& pavarde) {
-        pavarde_ = pavarde;
-    }
+    //Setter'iai
+    using Zmogus::setVardas;
+    using Zmogus::setPavarde;
+    
     inline void setNd(const std::vector<int>& nd) {
         nd_ = nd;
         galutinis_vid_ = -1.0;
@@ -64,7 +58,9 @@ public:
         galutinis_med_ = -1.0;
     }
 
-    //metodai
+    void spausdintiInformacija() const override;
+
+    //Skaiciavimo metodai
     double skaiciuotiVidurki() const;
     double skaiciuotiMediana() const;
     std::pair<double, double> skaiciuotiGalutinius() const;
@@ -82,15 +78,13 @@ public:
     friend std::istream& operator>>(std::istream& is, Studentas& studentas);
     friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas);
 
-    //papildomi metodai
-    void isvalytiDuomenis();
+    void isvalytiDuomenis() override;
     void generuotiPazymius(int nd_kiekis);
-    void spausdintiInformacija() const;
 };
 
 //papildomos funkcijos
 void demonstruotiRuleOfThree();
-void demonstruotiIOMetodus();
+void demonstruotiAbstrakciaKlase();
 void demonstruotiVisusRežimus();
 void demonstruotiRankiniĮvedimą();
 void demonstruotiAutomatiniGeneravimą();
