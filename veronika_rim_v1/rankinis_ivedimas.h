@@ -12,18 +12,37 @@ template<typename Container>
 void rankinis_ivedimas(Container& visi) {
     char dar = 't';
     while (dar == 't' || dar == 'T') {
-        Studentas s;
-        std::string vardas, pavarde;
-        
-        std::cout << "Vardas: ";
-        std::cin >> vardas;
-        std::cout << "Pavardė: ";
-        std::cin >> pavarde;
-        
-        s.setVardas(vardas);
-        s.setPavarde(pavarde);
-        
-        std::cout << "Objekto adresas atmintyje: " << &s << std::endl;
+        if constexpr (std::is_same_v<Container, std::vector<Studentas>>) {
+            //Vector atveju emplace_back
+            visi.emplace_back();
+            Studentas& s = visi.back();
+            std::cout << "Objekto adresas atmintyje: " << &s << std::endl;
+            
+            std::string vardas, pavarde;
+            std::cout << "Vardas: ";
+            std::cin >> vardas;
+            std::cout << "Pavardė: ";
+            std::cin >> pavarde;
+            
+            s.setVardas(vardas);
+            s.setPavarde(pavarde);
+            
+        } else {
+            //List atveju naują objektą
+            Studentas s;
+            std::cout << "Objekto adresas atmintyje: " << &s << std::endl;
+            
+            std::string vardas, pavarde;
+            std::cout << "Vardas: ";
+            std::cin >> vardas;
+            std::cout << "Pavardė: ";
+            std::cin >> pavarde;
+            
+            s.setVardas(vardas);
+            s.setPavarde(pavarde);
+            
+            visi.push_back(std::move(s));
+        }
         
         std::cout << "Generuoti (r) ar įvesti (i)? ";
         char pas;
@@ -42,22 +61,44 @@ void rankinis_ivedimas(Container& visi) {
                 int paz;
                 if (ss >> paz) nd.push_back(paz);
             }
-            s.setNd(nd);
+            
+            if constexpr (std::is_same_v<Container, std::vector<Studentas>>) {
+                Studentas& s = visi.back();
+                s.setNd(nd);
+            } else {
+                auto& s = visi.back();
+                const_cast<Studentas&>(s).setNd(nd);
+            }
             
             int egzas;
             std::cout << "Egzamino pažymys: ";
             std::cin >> egzas;
-            s.setEgzas(egzas);
+            
+            if constexpr (std::is_same_v<Container, std::vector<Studentas>>) {
+                Studentas& s = visi.back();
+                s.setEgzas(egzas);
+            } else {
+                auto& s = visi.back();
+                const_cast<Studentas&>(s).setEgzas(egzas);
+            }
+            
         } else {
             int kiek;
             std::cout << "Kiek ND generuoti? ";
             std::cin >> kiek;
             std::vector<int> nd;
             for (int i = 0; i < kiek; i++) nd.push_back(gen_paz());
-            s.setNd(nd);
-            s.setEgzas(gen_paz());
+            
+            if constexpr (std::is_same_v<Container, std::vector<Studentas>>) {
+                Studentas& s = visi.back();
+                s.setNd(nd);
+                s.setEgzas(gen_paz());
+            } else {
+                auto& s = visi.back();
+                const_cast<Studentas&>(s).setNd(nd);
+                const_cast<Studentas&>(s).setEgzas(gen_paz());
+            }
         }
-        visi.push_back(s);
         
         std::cout << "Dar pridėti? (t/T): ";
         std::cin >> dar;

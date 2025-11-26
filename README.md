@@ -271,7 +271,39 @@ Visi režimai iš eilės - paleidžia visus režimus vienu metu
 ![Terminalas](images/Demonstracinis_5.png)
 ![Terminalas](images/Demonstracinis_6.png)
 
+v1.5 (2025-11-26):
 
+Naujas Objektų Hierarchijos Modelis:
+
+Abstrakti Bazinė Klasė: Žmogus
+
+class Zmogus {
+protected:
+    std::string vardas_;
+    std::string pavarde_;
+
+public:
+    //klasė tampa abstrakčia, dėl abstrakčių metodų
+    virtual void spausdintiInformacija() const = 0;
+    
+    virtual ~Zmogus() = default;
+};
+
+Išvestinė Klasė: Studentas
+public:
+    // Implementuojamas abstraktus metodas
+    void spausdintiInformacija() const override;
+    
+    // Išlaikyta Rule of Five
+    Studentas(const Studentas& other);
+    Studentas(Studentas&& other) noexcept;
+    
+Abstrakčios klasės testavimas:
+
+![Terminalas](images/abstrakti_klase.png)
+
+Kai eilutė neužkometuota:
+![Terminalas](images/error.png)
 
 Autorius
 Veronika Rimlevičiūtė - Vilniaus Universitetas, Duomenų mokslas.

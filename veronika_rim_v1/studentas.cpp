@@ -308,8 +308,8 @@ void demonstruotiAbstrakciaKlase() {
     std::cout << "\n===== ABSTRAKCIOS KLASĖS DEMONSTRAVIMAS =====\n\n";
     
     std::cout << "1. Bandome sukurti Zmogus objektą (turi nepavykti):\n";
-    // Ši eilutę užkomentuota, nes kompiliatorius neleis:
-    // Zmogus zmogus;
+    //Ši eilutė užkomentuota, nes kompiliatorius neleis:
+    //Zmogus zmogus;
     std::cout << "Klaida: Negalima sukurti Zmogus objekto, nes klasė abstrakti!\n\n";
     
     std::cout << "2. Sukuriame Studentas objektą (veikia normaliai):\n";
