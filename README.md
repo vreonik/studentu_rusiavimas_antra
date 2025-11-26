@@ -1,4 +1,4 @@
-Studentų Rūšiavimo Sistema v1.2
+Studentų Rūšiavimo Sistema v1.5
 
 Release Istorija:
 v0.1 (2025-09-25) - pradinė versija:
@@ -302,7 +302,7 @@ Abstrakčios klasės testavimas:
 
 ![Terminalas](images/abstrakti_klase.png)
 
-Kai eilutė neužkometuota:
+Kai eilutė neužkomentuota:
 ![Terminalas](images/error.png)
 
 Autorius
