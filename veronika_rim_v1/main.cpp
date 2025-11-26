@@ -24,11 +24,15 @@ using std::list;
 using Laikmatis = std::chrono::high_resolution_clock;
 using ms = std::chrono::milliseconds;
 
+using StudentuVector = std::vector<Studentas>;
+using StudentuList = std::list<Studentas>;
+
 void testuoti_programa();
 void testuoti_strategijas();
 void naudoti_strategija_su_failu();
 
 int main() {
+    
     cout << "STUDENTŲ RŪŠIAVIMO SISTEMA v1.2\n";
     cout << "Pasirinkite režimą:\n"
          << " f - skaityti iš failo\n"
@@ -43,6 +47,7 @@ int main() {
 
     char rez;
     cin >> rez;
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (rez == 'd' || rez == 'D') {
         demonstruotiVisusRežimus();
@@ -75,6 +80,7 @@ int main() {
              << " Pasirinkimas: ";
         char palyginimo_tipas;
         cin >> palyginimo_tipas;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         
         if (palyginimo_tipas == 'e' || palyginimo_tipas == 'E') {
             testuoti_konteinerius_su_pasirinktu_failu();
@@ -86,22 +92,25 @@ int main() {
         return 0;
     }
 
-    cout << "Pasirinkite konteinerio tipą:\n"
-         << " v - std::vector\n"
-         << " l - std::list\n"
-         << " Pasirinkimas: ";
-    char konteinerio_tipas;
-    cin >> konteinerio_tipas;
+    char konteinerio_tipas = 'v';
+    char rikiuoti_kriterijus = 'v';
 
-    cout << "Rikiuoti pagal:\n"
-         << " v - vidurkį\n"
-         << " m - medianą\n"
-         << " p - vardą\n"
-         << " Pasirinkimas: ";
-    char rikiuoti_kriterijus;
-    cin >> rikiuoti_kriterijus;
+    if (rez == 'f' || rez == 'F' || rez == 'g' || rez == 'G' || rez == 'p' || rez == 'P') {
+        cout << "Pasirinkite konteinerio tipą:\n"
+             << " v - std::vector (rekomenduojama)\n"
+             << " l - std::list\n"
+             << " Pasirinkimas: ";
+        cin >> konteinerio_tipas;
 
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Rikiuoti pagal:\n"
+             << " v - vidurkį\n"
+             << " m - medianą\n"
+             << " p - vardą\n"
+             << " Pasirinkimas: ";
+        cin >> rikiuoti_kriterijus;
+
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
 
     if (rez == 'g' || rez == 'G') {
         cout << "Failo pavadinimas: ";
@@ -125,6 +134,7 @@ int main() {
         cout << "Naudoti šį failą dabar? (t/T): ";
         char d;
         cin >> d;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         
         if (d == 't' || d == 'T') {
             cout << "Pasirinkite galutinio pažymio skaičiavimo būdą:\n"
@@ -134,11 +144,12 @@ int main() {
                  << " Pasirinkimas: ";
             char budas;
             cin >> budas;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             if (konteinerio_tipas == 'v' || konteinerio_tipas == 'V') {
-                apdoroti_faila<vector<Studentas>>(fname, budas, rikiuoti_kriterijus);
+                apdoroti_faila<StudentuVector>(fname, budas, rikiuoti_kriterijus);
             } else {
-                apdoroti_faila<list<Studentas>>(fname, budas, rikiuoti_kriterijus);
+                apdoroti_faila<StudentuList>(fname, budas, rikiuoti_kriterijus);
             }
         }
         return 0;
@@ -157,11 +168,12 @@ int main() {
              << " Pasirinkimas: ";
         char budas;
         cin >> budas;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         if (konteinerio_tipas == 'v' || konteinerio_tipas == 'V') {
-            apdoroti_faila<vector<Studentas>>(fname, budas, rikiuoti_kriterijus);
+            apdoroti_faila<StudentuVector>(fname, budas, rikiuoti_kriterijus);
         } else {
-            apdoroti_faila<list<Studentas>>(fname, budas, rikiuoti_kriterijus);
+            apdoroti_faila<StudentuList>(fname, budas, rikiuoti_kriterijus);
         }
         return 0;
     }
@@ -174,15 +186,16 @@ int main() {
              << " Pasirinkimas: ";
         char budas;
         cin >> budas;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         if (konteinerio_tipas == 'v' || konteinerio_tipas == 'V') {
-            vector<Studentas> studentai;
+            StudentuVector studentai;
             rankinis_ivedimas(studentai);
             long long skirstymo_ms = 0, rusiavimo_ms = 0, irasymo_ms = 0;
             klasifikuoti_ir_irasyti(studentai, budas, "vargsiukai_rankiniai.txt",
                                      "kietakiai_rankiniai.txt", skirstymo_ms, rusiavimo_ms, irasymo_ms, rikiuoti_kriterijus);
         } else {
-            list<Studentas> studentai;
+            StudentuList studentai;
             rankinis_ivedimas(studentai);
             long long skirstymo_ms = 0, rusiavimo_ms = 0, irasymo_ms = 0;
             klasifikuoti_ir_irasyti(studentai, budas, "vargsiukai_rankiniai.txt",
@@ -204,11 +217,11 @@ void testuoti_strategijas() {
     
     char pasirinkimas;
     cin >> pasirinkimas;
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     
     if (pasirinkimas == 'e' || pasirinkimas == 'E') {
         cout << "Įveskite failo pavadinimą: ";
         string fname;
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(cin, fname);
         
         if (fname.empty()) fname = "kursiokai.txt";
@@ -223,7 +236,6 @@ void naudoti_strategija_su_failu() {
     cout << "STRATEGIJOS NAUDOJIMAS SU FAILU\n";
     cout << "Įveskite failo pavadinimą: ";
     string fname;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(cin, fname);
     
     if (fname.empty()) fname = "kursiokai.txt";
@@ -249,7 +261,7 @@ void naudoti_strategija_su_failu() {
     }
 
     cout << "Pasirinkite konteinerio tipą:\n"
-         << " v - std::vector\n"
+         << " v - std::vector (rekomenduojama)\n"
          << " l - std::list\n"
          << " Pasirinkimas: ";
     char konteinerio_tipas;
@@ -266,7 +278,7 @@ void naudoti_strategija_su_failu() {
     
     if (konteinerio_tipas == 'v' || konteinerio_tipas == 'V') {
         auto visi = nuskaityti(fname);
-        vector<Studentas> vargsiukai, kietakiai;
+        StudentuVector vargsiukai, kietakiai;
         
         TestoRezultatai rez;
         switch(strategija) {
@@ -290,7 +302,7 @@ void naudoti_strategija_su_failu() {
         
     } else {
         auto visi = nuskaityti_i_list(fname);
-        list<Studentas> vargsiukai, kietakiai;
+        StudentuList vargsiukai, kietakiai;
         
         TestoRezultatai rez;
         switch(strategija) {
@@ -321,7 +333,7 @@ void testuoti_programa() {
     vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
     int nd_kiek = 5;
 
-    cout << "Testavimas su " << dydziai.size() << " dydžiais:\n";
+    cout << "Testavimas su " << dydziai.size() << " dydžiais (OPTIMIZUOTAS):\n";
     cout << "Dydžiai: ";
     for (int dydis : dydziai) {
         cout << dydis << " ";
@@ -339,10 +351,61 @@ void testuoti_programa() {
         cout << "Sugeneruota per " << std::chrono::duration_cast<ms>(gen_pabaiga - gen_pradzia).count() << "ms\n";
 
         cout << "Testuojamas vector... ";
-        apdoroti_faila<vector<Studentas>>(fname, 'v', 'v');
+        auto v_start = Laikmatis::now();
+        apdoroti_faila<StudentuVector>(fname, 'v', 'v');
+        auto v_end = Laikmatis::now();
+        cout << "Užtruko: " << std::chrono::duration_cast<ms>(v_end - v_start).count() << "ms\n";
 
         cout << "Testuojamas list... ";
-        apdoroti_faila<list<Studentas>>(fname, 'v', 'v');
+        auto l_start = Laikmatis::now();
+        apdoroti_faila<StudentuList>(fname, 'v', 'v');
+        auto l_end = Laikmatis::now();
+        cout << "Užtruko: " << std::chrono::duration_cast<ms>(l_end - l_start).count() << "ms\n";
     }
 }
 
+template<typename Container>
+Container optimizuotas_nuskaitymas(const std::string& fname) {
+    Container studentai;
+    std::ifstream fd(fname);
+    
+    if (!fd.good()) {
+        throw std::runtime_error("Failas '" + fname + "' neegzistuoja arba nepasiekiamas");
+    }
+
+    std::string eilute;
+    std::getline(fd, eilute);
+
+    while (std::getline(fd, eilute)) {
+        if (eilute.empty()) continue;
+        
+        std::istringstream iss(eilute);
+        Studentas studentas;
+        
+        std::string vardas, pavarde;
+        iss >> vardas >> pavarde;
+        studentas.setVardas(std::move(vardas));
+        studentas.setPavarde(std::move(pavarde));
+        
+        std::vector<int> pazymiai;
+        int pazymys;
+        while (iss >> pazymys) {
+            pazymiai.push_back(pazymys);
+        }
+        
+        if (!pazymiai.empty()) {
+            studentas.setEgzas(pazymiai.back());
+            pazymiai.pop_back();
+            studentas.setNd(std::move(pazymiai));
+        }
+        
+        if constexpr (std::is_same_v<Container, StudentuVector>) {
+            studentai.push_back(std::move(studentas));
+        } else {
+            studentai.push_back(std::move(studentas));
+        }
+    }
+    
+    fd.close();
+    return studentai;
+}

@@ -35,7 +35,7 @@ void testuoti_strategija_su_vidurkiu(const string& fname,
     size_t vector_atmintis_sum = 0, list_atmintis_sum = 0;
     
     for (int k = 0; k < testu_kartai; k++) {
-        // Testuojame vector
+        //Testuojame vector
         {
             auto visi = nuskaityti(fname);
             vector<Studentas> vargsiukai, kietakiai;
@@ -57,7 +57,7 @@ void testuoti_strategija_su_vidurkiu(const string& fname,
             vector_atmintis_sum += rez.atmintis_bendra;
         }
         
-        // Testuojame list
+        //Testuojame list
         {
             auto visi = nuskaityti_i_list(fname);
             list<Studentas> vargsiukai, kietakiai;
@@ -165,34 +165,26 @@ void testuoti_konteinerius_sugeneruotus() {
 }
 
 void testuoti_konteinerius_su_pasirinktu_failu() {
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    
     cout << "Įveskite failo pavadinimą konteinerių palyginimui: ";
     string fname;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(cin, fname);
     
     if (fname.empty()) {
-        fname = "kursiokai.txt";
+        cout << "Failo pavadinimas negali būti tuščias!\n";
+        return;
     }
-
+    
     std::ifstream testas(fname);
-    if (!testas.good()) {
+    if (!testas.is_open()) {
         cout << "Klaida: Failas '" << fname << "' neegzistuoja!\n";
-        cout << "Ar norite sugeneruoti naują failą? (t/n): ";
-        char pasirinkimas;
-        cin >> pasirinkimas;
-        if (pasirinkimas == 't' || pasirinkimas == 'T') {
-            cout << "Kiek įrašų generuoti? ";
-            int N; cin >> N;
-            cout << "Kiek ND pažymių? ";
-            int nd; cin >> nd;
-            generuoti_faila(N, fname, nd);
-            cout << "Failas '" << fname << "' sugeneruotas.\n";
-        } else {
-            return;
-        }
+        cout << "Patikrinkite failo pavadinimą ir bandykite dar kartą.\n";
+        return;
     }
     testas.close();
     
+    cout << "Failas rastas. Pradedamas testavimas...\n";
     testuoti_konteinerius_su_failu(fname);
     testuoti_visas_strategijas(fname);
 }

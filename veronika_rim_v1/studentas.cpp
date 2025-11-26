@@ -8,57 +8,70 @@
 
 //Konstruktoriai
 Studentas::Studentas() : vardas_(""), pavarde_(""), egzas_(0) {
-    std::cout << "Iškviestas default konstruktorius (" << this << ")\n";
+    DEBUG_LOG("Iškviestas default konstruktorius (" << this << ")");
 }
 
 Studentas::Studentas(const std::string& vardas, const std::string& pavarde)
     : vardas_(vardas), pavarde_(pavarde), egzas_(0) {
-    std::cout << "Iškviestas parametrizuotas konstruktorius (" << this << ")\n";
+    DEBUG_LOG("Iškviestas parametrizuotas konstruktorius (" << this << ")");
 }
 
 Studentas::Studentas(const std::string& vardas, const std::string& pavarde,
                      const std::vector<int>& nd, int egzas)
     : vardas_(vardas), pavarde_(pavarde), nd_(nd), egzas_(egzas) {
-    std::cout << "Iškviestas pilnas konstruktorius (" << this << ")\n";
+    DEBUG_LOG("Iškviestas pilnas konstruktorius (" << this << ")");
 }
 
 //Rule of five
 Studentas::Studentas(const Studentas& other)
     : vardas_(other.vardas_), pavarde_(other.pavarde_),
-      nd_(other.nd_), egzas_(other.egzas_) {
-    std::cout << "Iškviestas COPY konstruktorius (" << this << " iš " << &other << ")\n";
+      nd_(other.nd_), egzas_(other.egzas_),
+      galutinis_vid_(other.galutinis_vid_),
+      galutinis_med_(other.galutinis_med_) {
+    DEBUG_LOG("Iškviestas COPY konstruktorius (" << this << " iš " << &other << ")");
 }
 
 Studentas::Studentas(Studentas&& other) noexcept
     : vardas_(std::move(other.vardas_)),
       pavarde_(std::move(other.pavarde_)),
       nd_(std::move(other.nd_)),
-      egzas_(other.egzas_) {
+      egzas_(other.egzas_),
+      galutinis_vid_(other.galutinis_vid_),
+      galutinis_med_(other.galutinis_med_) {
     other.egzas_ = 0;
+    other.galutinis_vid_ = -1.0;
+    other.galutinis_med_ = -1.0;
     other.vardas_.clear();
     other.pavarde_.clear();
-    std::cout << "Iškviestas MOVE konstruktorius (" << this << " iš " << &other << ")\n";
+    DEBUG_LOG("Iškviestas MOVE konstruktorius (" << this << " iš " << &other << ")");
 }
 
 Studentas& Studentas::operator=(const Studentas& other) {
     if (this != &other) {
-        std::cout << "Iškviestas COPY assignment (" << this << " = " << &other << ")\n";
+        DEBUG_LOG("Iškviestas COPY assignment (" << this << " = " << &other << ")");
         vardas_ = other.vardas_;
         pavarde_ = other.pavarde_;
         nd_ = other.nd_;
         egzas_ = other.egzas_;
+        galutinis_vid_ = other.galutinis_vid_;
+        galutinis_med_ = other.galutinis_med_;
     }
     return *this;
 }
 
 Studentas& Studentas::operator=(Studentas&& other) noexcept {
     if (this != &other) {
-        std::cout << "Iškviestas MOVE assignment (" << this << " = " << &other << ")\n";
+        DEBUG_LOG("Iškviestas MOVE assignment (" << this << " = " << &other << ")");
         vardas_ = std::move(other.vardas_);
         pavarde_ = std::move(other.pavarde_);
         nd_ = std::move(other.nd_);
         egzas_ = other.egzas_;
+        galutinis_vid_ = other.galutinis_vid_;
+        galutinis_med_ = other.galutinis_med_;
+        
         other.egzas_ = 0;
+        other.galutinis_vid_ = -1.0;
+        other.galutinis_med_ = -1.0;
         other.vardas_.clear();
         other.pavarde_.clear();
     }
@@ -66,7 +79,7 @@ Studentas& Studentas::operator=(Studentas&& other) noexcept {
 }
 
 Studentas::~Studentas() {
-    std::cout << "Iškviestas destruktorius (" << this << ")\n";
+    DEBUG_LOG("Iškviestas destruktorius (" << this << ")");
 }
 
 //Skaiciavimo metodai
@@ -95,17 +108,30 @@ std::pair<double, double> Studentas::skaiciuotiGalutinius() const {
     return {galutinis_vid, galutinis_med};
 }
 
+//caching metodai, optimizuojame ofc!
+double Studentas::gautiGalutiniVidurki() const {
+    if (galutinis_vid_ < 0) {
+        double vidurkis = skaiciuotiVidurki();
+        galutinis_vid_ = 0.4 * vidurkis + 0.6 * egzas_;
+    }
+    return galutinis_vid_;
+}
+
+double Studentas::gautiGalutiniMediana() const {
+    if (galutinis_med_ < 0) {
+        double mediana = skaiciuotiMediana();
+        galutinis_med_ = 0.4 * mediana + 0.6 * egzas_;
+    }
+    return galutinis_med_;
+}
+
 //Operatoriai
 bool Studentas::operator<(const Studentas& other) const {
-    auto [vid1, med1] = skaiciuotiGalutinius();
-    auto [vid2, med2] = other.skaiciuotiGalutinius();
-    return vid1 < vid2;
+    return gautiGalutiniVidurki() < other.gautiGalutiniVidurki();
 }
 
 bool Studentas::operator>(const Studentas& other) const {
-    auto [vid1, med1] = skaiciuotiGalutinius();
-    auto [vid2, med2] = other.skaiciuotiGalutinius();
-    return vid1 > vid2;
+    return gautiGalutiniVidurki() > other.gautiGalutiniVidurki();
 }
 
 bool Studentas::operator==(const Studentas& other) const {
@@ -121,42 +147,68 @@ bool Studentas::operator!=(const Studentas& other) const {
 
 //i/o operatoriai
 std::istream& operator>>(std::istream& is, Studentas& studentas) {
-    std::cout << "=== STUDENTO DUOMENŲ ĮVEDIMAS ===\n";
+    if (&is == &std::cin) {
+        std::cout << "=== STUDENTO DUOMENŲ ĮVEDIMAS ===\n";
+        std::cout << "Vardas: ";
+    }
     
-    std::cout << "Vardas: ";
     is >> studentas.vardas_;
     
-    std::cout << "Pavardė: ";
+    if (&is == &std::cin) {
+        std::cout << "Pavardė: ";
+    }
     is >> studentas.pavarde_;
     
     studentas.nd_.clear();
-    std::cout << "Įveskite ND pažymius (baigti su 0): ";
+    studentas.galutinis_vid_ = -1.0; //Reset cache
+    studentas.galutinis_med_ = -1.0;
+    
+    if (&is == &std::cin) {
+        std::cout << "Įveskite ND pažymius (baigti su 0): ";
+    }
+    
     int pazymys;
     while (is >> pazymys) {
         if (pazymys == 0) break;
         if (pazymys >= 1 && pazymys <= 10) {
             studentas.nd_.push_back(pazymys);
-            std::cout << "Įvestas: " << pazymys << " (kitas arba 0 baigti): ";
+            if (&is == &std::cin) {
+                std::cout << "Įvestas: " << pazymys << " (kitas arba 0 baigti): ";
+            }
         } else {
-            std::cout << "Netinkamas pažymys! Turi būti 1-10. Bandykite dar kartą: ";
+            if (&is == &std::cin) {
+                std::cout << "Netinkamas pažymys! Turi būti 1-10. Bandykite dar kartą: ";
+            }
+            continue;
         }
     }
-    is.clear();
-    is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     
-    std::cout << "Egzamino pažymys: ";
-    while (!(is >> studentas.egzas_) || studentas.egzas_ < 1 || studentas.egzas_ > 10) {
-        std::cout << "Netinkamas pažymys! Turi būti 1-10. Bandykite dar kartą: ";
+    if (is.fail() && !is.eof()) {
         is.clear();
-        is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     
-    std::cout << "Studento duomenys sėkmingai įvesti!\n";
+    if (&is == &std::cin) {
+        std::cout << "Egzamino pažymys: ";
+        while (!(is >> studentas.egzas_) || studentas.egzas_ < 1 || studentas.egzas_ > 10) {
+            std::cout << "Netinkamas pažymys! Turi būti 1-10. Bandykite dar kartą: ";
+            is.clear();
+            is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        
+        std::cout << "Studento duomenys sėkmingai įvesti!\n";
+    } else {
+        if (!studentas.nd_.empty()) {
+            studentas.egzas_ = studentas.nd_.back();
+            studentas.nd_.pop_back();
+        }
+    }
+    
     return is;
 }
 
 std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
-    auto [vid, med] = studentas.skaiciuotiGalutinius();
+    auto vid = studentas.gautiGalutiniVidurki();
+    auto med = studentas.gautiGalutiniMediana();
     
     os << "STUDENTO INFORMACIJA:\n"
        << "────────────────────────\n"
@@ -185,7 +237,9 @@ void Studentas::isvalytiDuomenis() {
     pavarde_.clear();
     nd_.clear();
     egzas_ = 0;
-    std::cout << "Studento duomenys išvalyti (" << this << ")\n";
+    galutinis_vid_ = -1.0;
+    galutinis_med_ = -1.0;
+    DEBUG_LOG("Studento duomenys išvalyti (" << this << ")");
 }
 
 void Studentas::generuotiPazymius(int nd_kiekis) {
@@ -198,15 +252,17 @@ void Studentas::generuotiPazymius(int nd_kiekis) {
         nd_.push_back(dist(gen));
     }
     egzas_ = dist(gen);
+    galutinis_vid_ = -1.0;
+    galutinis_med_ = -1.0;
     
-    std::cout << "Sugeneruoti " << nd_kiekis << " ND ir egzamino pažymiai (" << this << ")\n";
+    DEBUG_LOG("Sugeneruoti " << nd_kiekis << " ND ir egzamino pažymiai (" << this << ")");
 }
 
 void Studentas::spausdintiInformacija() const {
     std::cout << *this << "\n";
 }
 
-//Demonstration
+//Debug LOG
 void demonstruotiRuleOfThree() {
     std::cout << "\n ===== RULE OF THREE/FIVE DEMONSTRAVIMAS =====\n\n";
     
@@ -323,7 +379,7 @@ void demonstruotiĮvestįIšFailo() {
             s.setNd(nd);
         }
         
-        studentai.push_back(s);
+        studentai.push_back(std::move(s));
         studentuSk++;
     }
     
@@ -338,11 +394,9 @@ void demonstruotiĮvestįIšFailo() {
     std::remove(failoVardas.c_str());
 }
 
-
 void demonstruotiIšvestįĮFailą() {
     std::cout << "\n=== IŠVESTIS Į FAILĄ ===\n";
     
-    //Sukuriame keletą studentų
     std::vector<Studentas> studentai;
     
     Studentas s1("Jonas", "Jonaitis");
@@ -356,9 +410,9 @@ void demonstruotiIšvestįĮFailą() {
     Studentas s3("Petras", "Petraitis");
     s3.generuotiPazymius(4);
     
-    studentai.push_back(s1);
-    studentai.push_back(s2);
-    studentai.push_back(s3);
+    studentai.push_back(std::move(s1));
+    studentai.push_back(std::move(s2));
+    studentai.push_back(std::move(s3));
     
     //Išvedame į failą
     std::string failoVardas = "studentu_rezultatai.txt";
@@ -369,7 +423,8 @@ void demonstruotiIšvestįĮFailą() {
     
     for(size_t i = 0; i < studentai.size(); ++i) {
         rezultatai << "Studentas " << i+1 << ":\n";
-        auto [vid, med] = studentai[i].skaiciuotiGalutinius();
+        auto vid = studentai[i].gautiGalutiniVidurki();
+        auto med = studentai[i].gautiGalutiniMediana();
         rezultatai << "Vardas: " << studentai[i].getVardas() << "\n";
         rezultatai << "Pavardė: " << studentai[i].getPavarde() << "\n";
         rezultatai << "ND pažymiai: ";
@@ -389,7 +444,6 @@ void demonstruotiIšvestįĮFailą() {
     
     std::cout << "Studentų duomenys sėkmingai išvesti į failą: " << failoVardas << "\n";
     
-    // Parodome failo turinį
     std::cout << "Failo turinys:\n";
     std::ifstream skaitymas(failoVardas);
     std::string eilute;

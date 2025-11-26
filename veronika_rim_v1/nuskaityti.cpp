@@ -55,7 +55,7 @@ std::list<Studentas> nuskaityti_i_list(const std::string& failas) {
     return result;
 }
 
-// STRUCT VERSIJOS
+//STRUCT VERSIJOS
 std::vector<StudentasStruct> nuskaityti_struct(const std::string& failas) {
     std::ifstream fd(failas);
     if (!fd.is_open()) {

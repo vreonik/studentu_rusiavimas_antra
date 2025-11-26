@@ -6,12 +6,23 @@
 #include <numeric>
 #include <iomanip>
 
+
+#ifdef DEBUG_MODE
+    #define DEBUG_LOG(msg) std::cout << msg << "\n"
+#else
+    #define DEBUG_LOG(msg)
+#endif
+
 class Studentas {
 private:
     std::string vardas_;
     std::string pavarde_;
     std::vector<int> nd_;
     int egzas_;
+    
+    // Cache reikšmės
+    mutable double galutinis_vid_ = -1.0;
+    mutable double galutinis_med_ = -1.0;
 
 public:
     //Konstruktoriai
@@ -20,7 +31,7 @@ public:
     Studentas(const std::string& vardas, const std::string& pavarde,
               const std::vector<int>& nd, int egzas);
     
-    //It is rule of five!
+    //Rule of five!
     Studentas(const Studentas& other);
     Studentas(Studentas&& other) noexcept;
     Studentas& operator=(const Studentas& other);
@@ -34,15 +45,33 @@ public:
     inline int getEgzas() const { return egzas_; }
 
     //Setteriai
-    inline void setVardas(const std::string& vardas) { vardas_ = vardas; }
-    inline void setPavarde(const std::string& pavarde) { pavarde_ = pavarde; }
-    inline void setNd(const std::vector<int>& nd) { nd_ = nd; }
-    inline void setEgzas(int egzas) { egzas_ = egzas; }
+    inline void setVardas(const std::string& vardas) {
+        vardas_ = vardas;
+        galutinis_vid_ = -1.0;
+        galutinis_med_ = -1.0;
+    }
+    inline void setPavarde(const std::string& pavarde) {
+        pavarde_ = pavarde;
+    }
+    inline void setNd(const std::vector<int>& nd) {
+        nd_ = nd;
+        galutinis_vid_ = -1.0;
+        galutinis_med_ = -1.0;
+    }
+    inline void setEgzas(int egzas) {
+        egzas_ = egzas;
+        galutinis_vid_ = -1.0;
+        galutinis_med_ = -1.0;
+    }
 
     //metodai
     double skaiciuotiVidurki() const;
     double skaiciuotiMediana() const;
     std::pair<double, double> skaiciuotiGalutinius() const;
+    
+    // Optimizuoti metodai su caching
+    double gautiGalutiniVidurki() const;
+    double gautiGalutiniMediana() const;
 
     //operatoriai
     bool operator<(const Studentas& other) const;
@@ -50,7 +79,6 @@ public:
     bool operator==(const Studentas& other) const;
     bool operator!=(const Studentas& other) const;
 
-    //ir i/o operatoriai
     friend std::istream& operator>>(std::istream& is, Studentas& studentas);
     friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas);
 

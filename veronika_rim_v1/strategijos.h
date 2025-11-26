@@ -27,7 +27,7 @@ TestoRezultatai strategija_3(Container& visi_stud,
                             Container& vargsiukai,
                             char pasirinkimas);
 
-// STRUCT versijos
+//STRUCT versijos
 TestoRezultatai strategija_1_struct(std::vector<StudentasStruct>& visi_stud,
                                    std::vector<StudentasStruct>& vargsiukai,
                                    std::vector<StudentasStruct>& kietakiai,
