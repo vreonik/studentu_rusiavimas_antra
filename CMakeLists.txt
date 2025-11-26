@@ -14,6 +14,8 @@ add_executable(studentai
     util.cpp
     strategijos.cpp
     zmogus.cpp
+    studentas_struct.cpp
+    test_struct_vs_class.cpp
 )
 
 target_include_directories(studentai PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
