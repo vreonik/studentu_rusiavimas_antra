@@ -13,6 +13,7 @@ add_executable(studentai
     studentas.cpp
     util.cpp
     strategijos.cpp
+    zmogus.cpp
 )
 
 target_include_directories(studentai PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
@@ -20,4 +21,3 @@ target_include_directories(studentai PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_compile_options(studentai PRIVATE -O2)
 endif()
-
