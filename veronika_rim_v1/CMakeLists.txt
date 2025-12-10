@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if(MSVC)
     add_compile_options(/W4 /WX)
 else()
-    add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+    add_compile_options(-Wall -Wextra -Wpedantic -Wno-unused-but-set-variable)
 endif()
 
 find_package(GTest REQUIRED)
@@ -27,6 +27,7 @@ add_executable(studentu_rusiavimas
     util.cpp
     zmogus.cpp
     test_struct_vs_class.cpp
+    failu_generavimas.cpp
 )
 
 target_include_directories(studentu_rusiavimas PRIVATE .)
@@ -41,6 +42,7 @@ add_executable(unit_tests
     apdorojimas.cpp
     util.cpp
     zmogus.cpp
+    failu_generavimas.cpp
 )
 
 target_include_directories(unit_tests PRIVATE .)

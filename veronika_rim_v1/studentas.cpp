@@ -377,7 +377,7 @@ void demonstruotiĮvestįIšFailo() {
     std::string eilute;
     std::getline(skaitomasFailas, eilute);
     
-    int studentuSk = 0;
+    size_t studentuSk = 0;
     while (std::getline(skaitomasFailas, eilute)) {
         if (eilute.empty()) continue;
         
