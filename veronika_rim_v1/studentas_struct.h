@@ -1,20 +1,53 @@
-#pragma once
-#include <string>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <numeric>
+    /**
+     * @file studentas_struct.h
+     * @brief StudentasStruct struktūros deklaracija
+     *
+     * Šiame faile deklaruojama struct versija studentų duomenims,
+     * naudojama spartos palyginimo testams.
+     */
 
-struct StudentasStruct {
-    std::string vardas;
-    std::string pavarde;
-    std::vector<int> nd;
-    int egzas;
+    #pragma once
+    #include <string>
+    #include <vector>
+    #include <iostream>
+    #include <algorithm>
+    #include <numeric>
 
-    double skaiciuotiVidurki() const;
-    double skaiciuotiMediana() const;
-    std::pair<double, double> skaiciuotiGalutinius() const;
-};
+    /**
+     * @struct StudentasStruct
+     * @brief Studentų duomenų struktūra (struct versija)
+     */
+    struct StudentasStruct {
+        std::string vardas;       ///< Studento vardas
+        std::string pavarde;      ///< Studento pavardė
+        std::vector<int> nd;      ///< Namų darbų pažymiai
+        int egzas;                ///< Egzamino pažymys
 
-std::istream& operator>>(std::istream& is, StudentasStruct& studentas);
-std::ostream& operator<<(std::ostream& os, const StudentasStruct& studentas);
+        /**
+         * @brief Apskaičiuoti namų darbų vidurkį
+         * @return Vidurkis
+         */
+        double skaiciuotiVidurki() const;
+        
+        /**
+         * @brief Apskaičiuoti namų darbų medianą
+         * @return Mediana
+         */
+        double skaiciuotiMediana() const;
+        
+        /**
+         * @brief Apskaičiuoti galutinius pažymius
+         * @return Porą (vidurkis, mediana)
+         */
+        std::pair<double, double> skaiciuotiGalutinius() const;
+    };
+
+    /**
+     * @brief Įvesties operatorius struct versijai
+     */
+    std::istream& operator>>(std::istream& is, StudentasStruct& studentas);
+
+    /**
+     * @brief Išvesties operatorius struct versijai
+     */
+    std::ostream& operator<<(std::ostream& os, const StudentasStruct& studentas);
