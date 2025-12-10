@@ -355,6 +355,11 @@ Rezultatai:
 
 ![Terminalas](images/Testai_3.png)
 
+Kaip sugeneruoti: doxygen Doxyfile
+
+Atidaryti dokumentaciją macOS: open docs/html/index.html
+
+![Terminalas](images/Doxy.png)
 
 Autorius
 Veronika Rimlevičiūtė - Vilniaus Universitetas, Duomenų mokslas.
