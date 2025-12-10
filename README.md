@@ -321,7 +321,7 @@ Reikalavimai:
 - Doxygen (dokumentacijai)
 
 MacOS:
-```bash
+#```bash
 brew install cmake googletest doxygen graphviz
 git clone https://github.com/veronika/studentu-rusiavimas.git
 cd studentu-rusiavimas
