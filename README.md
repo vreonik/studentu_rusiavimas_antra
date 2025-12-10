@@ -1,4 +1,4 @@
-Studentų Rūšiavimo Sistema v1.5
+Studentų Rūšiavimo Sistema v2.0
 
 Release Istorija:
 v0.1 (2025-09-25) - pradinė versija:
@@ -304,6 +304,51 @@ Abstrakčios klasės testavimas:
 
 Kai eilutė neužkomentuota:
 ![Terminalas](images/error.png)
+
+v0.2 (2025-12-10):
+
+- 3 skirtingas skirstymo strategijas
+- Unit testus su GoogleTest
+- Doxygen dokumentaciją
+- CMake build sistemą
+
+Diegimas:
+
+Reikalavimai:
+- C++17 kompiliatorius
+- CMake 3.10+
+- GoogleTest (testams)
+- Doxygen (dokumentacijai)
+
+MacOS:
+```bash
+brew install cmake googletest doxygen graphviz
+git clone https://github.com/veronika/studentu-rusiavimas.git
+cd studentu-rusiavimas
+mkdir build && cd build
+cmake ..
+make
+
+Naudojimas:
+
+./studentu_rusiavimas
+
+STUDENTŲ RŪŠIAVIMO SISTEMA v2.0
+Pasirinkite režimą:
+ f - skaityti iš failo
+ g - sugeneruoti failą
+ p - rankinis įvedimas
+ t - testuoti konteinerius
+ s - strategijų palyginimas
+ n - naudoti konkrečią strategiją
+ x - testuoti struct vs class spartą
+ d - demonstracinė program
+ 
+ Unit Testai:
+ cd build
+./unit_tests
+
+
 
 Autorius
 Veronika Rimlevičiūtė - Vilniaus Universitetas, Duomenų mokslas.

@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+
 #include "studentas.h"
 #include "studentas_struct.h"
 #include "strategijos.h"
