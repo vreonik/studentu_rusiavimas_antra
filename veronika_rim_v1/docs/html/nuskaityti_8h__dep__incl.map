@@ -1,0 +1,17 @@
+<map id="nuskaityti.h" name="nuskaityti.h">
+<area shape="rect" id="Node000001" title="Failų skaitymo funkcijų deklaracijos." alt="" coords="311,5,400,31"/>
+<area shape="rect" id="Node000002" href="$apdorojimas_8h.html" title="Pagrindinės studentų duomenų apdorojimo funkcijos." alt="" coords="216,79,319,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="331,40,284,81,281,76,326,42"/>
+<area shape="rect" id="Node000004" href="$konteineriu__testavimas_8cpp.html" title="Konteinerių testavimo implementacijos." alt="" coords="5,153,186,178"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="300,38,255,57,206,81,151,119,110,155,107,150,148,115,203,77,253,53,304,35"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Pagrindinė programos dalis su meniu ir testavimo funkcijomis." alt="" coords="350,153,425,178"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="363,44,387,153,382,151,360,48"/>
+<area shape="rect" id="Node000006" href="$nuskaityti_8cpp.html" title="Failų skaitymo funkcijų implementacijos studentų duomenims." alt="" coords="392,79,495,105"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="383,39,431,79,426,78,382,44"/>
+<area shape="rect" id="Node000007" href="$test__struct__vs__class_8cpp.html" title="Struct vs Class spartos palyginimo testas." alt="" coords="518,79,686,105"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="412,33,563,78,557,79,412,38"/>
+<area shape="rect" id="Node000003" href="$apdorojimas_8cpp.html" title="Apdorojimo funkcijų kintamųjų ir globalių nustatymų failas." alt="" coords="209,153,326,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="269,118,270,154,265,151,266,122"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="227,111,126,155,124,150,222,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="302,110,370,152,364,152,300,115"/>
+</map>

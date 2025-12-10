@@ -1,0 +1,48 @@
+<map id="studentas.h" name="studentas.h">
+<area shape="rect" id="Node000001" title="Studentas klasės deklaracija." alt="" coords="454,5,544,31"/>
+<area shape="rect" id="Node000002" href="$apdorojimas_8h.html" title="Pagrindinės studentų duomenų apdorojimo funkcijos." alt="" coords="62,153,165,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="438,37,309,82,215,120,140,155,137,150,213,115,307,76,443,35"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Pagrindinė programos dalis su meniu ir testavimo funkcijomis." alt="" coords="180,226,255,252"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="437,25,191,44,76,61,37,70,17,81,11,90,9,101,12,127,24,153,42,176,61,186,96,199,182,226,178,229,95,204,58,191,39,180,20,156,7,128,3,101,6,88,13,77,35,65,75,55,191,39,440,20"/>
+<area shape="rect" id="Node000006" href="$konteineriu__testavimas_8h.html" title="Funkcijos konteinerių palyginimo testavimui." alt="" coords="657,153,823,178"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="559,27,620,45,652,59,681,77,700,94,716,115,737,153,732,151,711,118,696,98,677,81,649,64,619,50,559,32"/>
+<area shape="rect" id="Node000007" href="$nuskaityti_8h.html" title="Failų skaitymo funkcijų deklaracijos." alt="" coords="320,79,408,105"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="465,38,388,81,386,76,460,40"/>
+<area shape="rect" id="Node000009" href="$test__struct__vs__class_8cpp.html" title="Struct vs Class spartos palyginimo testas." alt="" coords="415,153,583,178"/>
+<area shape="poly" id="edge24_Node000001_Node000009" title=" " alt="" coords="501,45,501,153,497,151,497,49"/>
+<area shape="rect" id="Node000010" href="$rankinis__ivedimas_8h.html" title="Rankinio įvedimo funkcijos studentų duomenims." alt="" coords="27,79,163,105"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="438,33,164,81,163,76,440,28"/>
+<area shape="rect" id="Node000011" href="$strategijos_8h.html" title="Studentų skirstymo strategijų deklaracijos." alt="" coords="574,79,666,105"/>
+<area shape="poly" id="edge17_Node000001_Node000011" title=" " alt="" coords="533,37,602,78,597,78,532,42"/>
+<area shape="rect" id="Node000013" href="$studentas_8cpp.html" title="Studentas klasės metodų implementacijos." alt="" coords="742,79,845,105"/>
+<area shape="poly" id="edge23_Node000001_Node000013" title=" " alt="" coords="558,31,746,78,741,79,558,36"/>
+<area shape="rect" id="Node000014" href="$util_8h.html" title="Pagalbinių funkcijų deklaracijos." alt="" coords="926,79,976,105"/>
+<area shape="poly" id="edge25_Node000001_Node000014" title=" " alt="" coords="559,26,928,85,923,88,558,32"/>
+<area shape="rect" id="Node000003" href="$apdorojimas_8cpp.html" title="Apdorojimo funkcijų kintamųjų ir globalių nustatymų failas." alt="" coords="39,226,156,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="110,192,103,227,98,224,105,195"/>
+<area shape="rect" id="Node000004" href="$konteineriu__testavimas_8cpp.html" title="Konteinerių testavimo implementacijos." alt="" coords="650,226,830,252"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="181,172,650,225,649,230,180,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="144,185,202,225,197,226,143,190"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="742,192,742,228,738,224,738,196"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="642,183,255,235,255,230,641,178"/>
+<area shape="poly" id="edge10_Node000007_Node000002" title=" " alt="" coords="306,111,157,155,155,150,309,107"/>
+<area shape="poly" id="edge11_Node000007_Node000004" title=" " alt="" coords="371,117,384,150,393,164,405,176,422,186,446,195,509,210,652,231,647,231,508,215,444,200,420,191,401,180,389,167,379,152,368,122"/>
+<area shape="poly" id="edge12_Node000007_Node000005" title=" " alt="" coords="303,106,264,125,245,138,229,154,221,172,217,191,218,227,213,225,212,191,215,170,225,151,241,134,261,120,307,103"/>
+<area shape="rect" id="Node000008" href="$nuskaityti_8cpp.html" title="Failų skaitymo funkcijų implementacijos studentų duomenims." alt="" coords="238,153,341,178"/>
+<area shape="poly" id="edge13_Node000007_Node000008" title=" " alt="" coords="343,114,304,155,301,150,338,117"/>
+<area shape="poly" id="edge14_Node000007_Node000009" title=" " alt="" coords="401,110,479,152,473,152,400,115"/>
+<area shape="poly" id="edge16_Node000010_Node000005" title=" " alt="" coords="69,118,51,147,48,163,53,177,69,186,102,199,182,226,178,228,100,204,67,191,49,180,43,163,46,145,71,113"/>
+<area shape="poly" id="edge18_Node000011_Node000004" title=" " alt="" coords="682,99,773,119,812,133,837,151,843,163,842,176,827,197,802,215,773,228,772,223,799,210,824,193,837,174,838,164,833,154,810,138,772,124,682,105"/>
+<area shape="poly" id="edge20_Node000011_Node000005" title=" " alt="" coords="621,118,615,152,608,167,597,180,571,196,533,208,439,226,338,235,256,240,255,234,337,230,438,220,532,203,568,191,593,176,603,164,610,150,617,122"/>
+<area shape="poly" id="edge19_Node000011_Node000006" title=" " alt="" coords="654,110,722,152,717,152,653,115"/>
+<area shape="poly" id="edge22_Node000011_Node000009" title=" " alt="" coords="589,112,521,155,519,150,584,114"/>
+<area shape="rect" id="Node000012" href="$strategijos_8cpp.html" title="Studentų skirstymo strategijų implementacijos." alt="" coords="898,153,1004,178"/>
+<area shape="poly" id="edge21_Node000011_Node000012" title=" " alt="" coords="682,104,900,152,895,153,681,109"/>
+<area shape="poly" id="edge26_Node000014_Node000002" title=" " alt="" coords="908,99,858,107,681,123,543,132,227,155,165,161,164,156,227,150,542,127,680,118,857,102,913,98"/>
+<area shape="poly" id="edge27_Node000014_Node000004" title=" " alt="" coords="991,103,1023,116,1052,134,1062,144,1069,155,1069,168,1062,180,1047,193,1025,203,967,219,899,230,831,236,831,231,898,225,966,214,1023,198,1044,188,1058,177,1064,166,1063,157,1058,147,1049,138,1021,121,990,108"/>
+<area shape="poly" id="edge28_Node000014_Node000005" title=" " alt="" coords="985,111,1004,127,1019,144,1025,162,1018,180,983,191,908,201,684,218,255,239,255,234,684,213,908,196,982,186,1014,176,1020,162,1014,146,1001,130,983,116"/>
+<area shape="poly" id="edge30_Node000014_Node000009" title=" " alt="" coords="908,100,577,155,576,149,914,99"/>
+<area shape="poly" id="edge29_Node000014_Node000012" title=" " alt="" coords="953,118,953,154,949,150,949,122"/>
+<area shape="rect" id="Node000015" href="$util_8cpp.html" title="Pagalbinių funkcijų implementacijos." alt="" coords="1130,153,1193,178"/>
+<area shape="poly" id="edge31_Node000014_Node000015" title=" " alt="" coords="991,104,1132,153,1127,153,990,109"/>
+</map>

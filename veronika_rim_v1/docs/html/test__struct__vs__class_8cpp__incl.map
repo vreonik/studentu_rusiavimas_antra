@@ -1,0 +1,61 @@
+<map id="test_struct_vs_class.cpp" name="test_struct_vs_class.cpp">
+<area shape="rect" id="Node000001" title="Struct vs Class spartos palyginimo testas." alt="" coords="361,5,528,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="216,300,287,326"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="358,24,280,30,193,41,118,57,89,68,69,81,33,121,20,142,12,163,8,184,10,206,18,228,32,250,58,268,102,283,203,303,199,307,100,288,56,273,28,254,13,230,5,207,3,184,7,161,15,139,28,118,66,77,87,63,116,52,193,36,279,25,363,21"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="728,226,785,252"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="529,17,615,21,707,31,788,49,818,61,839,77,846,95,847,120,841,149,827,180,811,202,790,220,788,215,807,198,823,177,835,147,842,119,841,96,835,81,815,66,786,54,707,36,615,27,530,23"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="101,79,162,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="383,34,178,81,176,76,386,29"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="185,79,251,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="404,33,267,78,265,73,408,30"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="275,79,343,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="420,33,347,74,344,69,424,30"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="42,226,109,252"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="358,23,284,30,204,40,134,57,108,68,91,81,73,111,67,145,67,180,71,211,66,211,62,181,61,145,68,109,87,77,106,63,132,52,203,35,283,25,363,21"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="419,79,471,105"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="446,29,447,64,442,62,443,34"/>
+<area shape="rect" id="Node000009" href="$studentas_8h.html" title="Studentas klasės deklaracija." alt="" coords="379,153,468,178"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="436,30,421,54,409,80,407,110,414,140,409,138,402,110,404,78,416,51,432,33"/>
+<area shape="rect" id="Node000014" href="$studentas__struct_8h.html" title="StudentasStruct struktūros deklaracija." alt="" coords="500,153,629,178"/>
+<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="489,29,528,48,545,61,559,78,570,107,571,139,566,136,565,108,555,80,541,65,525,52,489,34"/>
+<area shape="rect" id="Node000015" href="$failu__generavimas_8h.html" title="Failų generavimo pagalbinės funkcijos." alt="" coords="919,153,1056,178"/>
+<area shape="poly" id="edge24_Node000001_Node000015" title=" " alt="" coords="529,22,733,40,831,56,871,66,901,77,922,90,942,106,973,141,968,140,938,110,919,94,898,81,869,71,830,61,732,45,529,27"/>
+<area shape="rect" id="Node000016" href="$nuskaityti_8h.html" title="Failų skaitymo funkcijų deklaracijos." alt="" coords="619,79,708,105"/>
+<area shape="poly" id="edge26_Node000001_Node000016" title=" " alt="" coords="482,29,614,73,609,74,482,34"/>
+<area shape="rect" id="Node000018" href="$util_8h.html" title="Pagalbinių funkcijų deklaracijos." alt="" coords="495,79,544,105"/>
+<area shape="poly" id="edge32_Node000001_Node000018" title=" " alt="" coords="458,29,499,68,494,68,457,34"/>
+<area shape="rect" id="Node000019" href="$strategijos_8h.html" title="Studentų skirstymo strategijų deklaracijos." alt="" coords="732,79,824,105"/>
+<area shape="poly" id="edge36_Node000001_Node000019" title=" " alt="" coords="502,29,719,77,714,78,502,34"/>
+<area shape="poly" id="edge11_Node000009_Node000002" title=" " alt="" coords="376,167,339,172,297,181,256,199,239,212,224,228,219,241,220,256,235,288,229,287,215,258,214,241,220,225,235,208,254,195,295,176,339,167,381,165"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="469,174,715,228,710,229,469,179"/>
+<area shape="poly" id="edge14_Node000009_Node000007" title=" " alt="" coords="378,179,124,231,123,225,379,173"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="343,300,397,326"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="412,178,392,201,377,227,370,256,369,286,365,283,365,255,372,225,388,198,407,180"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="386,226,461,252"/>
+<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="425,176,426,212,421,209,422,181"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="484,226,552,252"/>
+<area shape="poly" id="edge13_Node000009_Node000012" title=" " alt="" coords="440,176,493,217,487,217,439,181"/>
+<area shape="rect" id="Node000013" href="$zmogus_8h.html" title="Abstrakčios bazinės klasės Zmogus deklaracija." alt="" coords="234,226,312,252"/>
+<area shape="poly" id="edge15_Node000009_Node000013" title=" " alt="" coords="400,178,313,222,311,217,395,180"/>
+<area shape="poly" id="edge17_Node000013_Node000002" title=" " alt="" coords="271,251,261,287,257,283,267,254"/>
+<area shape="poly" id="edge16_Node000013_Node000010" title=" " alt="" coords="290,250,344,291,339,291,288,255"/>
+<area shape="poly" id="edge21_Node000014_Node000002" title=" " alt="" coords="570,177,577,214,575,235,565,254,532,265,463,279,303,306,302,301,462,274,531,260,562,250,570,234,572,215,567,181"/>
+<area shape="poly" id="edge20_Node000014_Node000003" title=" " alt="" coords="598,176,716,222,711,222,597,182"/>
+<area shape="poly" id="edge19_Node000014_Node000010" title=" " alt="" coords="580,176,596,192,609,212,616,233,610,253,596,265,577,275,525,291,412,310,412,304,523,286,575,270,593,261,605,251,611,233,605,214,592,196,578,181"/>
+<area shape="poly" id="edge22_Node000014_Node000011" title=" " alt="" coords="543,178,462,221,460,216,538,180"/>
+<area shape="poly" id="edge23_Node000014_Node000012" title=" " alt="" coords="559,177,536,215,533,211,555,180"/>
+<area shape="poly" id="edge25_Node000015_Node000010" title=" " alt="" coords="969,178,894,218,847,238,799,255,691,280,583,297,413,312,412,307,582,291,690,274,797,249,845,233,892,213,964,180"/>
+<area shape="poly" id="edge28_Node000016_Node000003" title=" " alt="" coords="672,103,743,214,738,212,670,107"/>
+<area shape="poly" id="edge30_Node000016_Node000009" title=" " alt="" coords="620,106,479,150,478,145,625,104"/>
+<area shape="poly" id="edge27_Node000016_Node000010" title=" " alt="" coords="666,103,669,135,666,175,654,217,644,237,631,254,615,265,592,275,534,291,412,310,412,305,533,286,591,270,612,260,627,250,640,234,649,215,660,174,663,135,663,107"/>
+<area shape="poly" id="edge31_Node000016_Node000014" title=" " alt="" coords="649,104,595,146,592,141,644,106"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="755,153,793,178"/>
+<area shape="poly" id="edge29_Node000016_Node000017" title=" " alt="" coords="683,103,745,144,740,144,682,108"/>
+<area shape="poly" id="edge34_Node000018_Node000009" title=" " alt="" coords="506,104,453,146,450,141,501,106"/>
+<area shape="poly" id="edge33_Node000018_Node000010" title=" " alt="" coords="492,104,339,167,263,202,237,217,224,228,219,242,222,255,231,266,246,276,286,292,331,305,325,305,285,297,244,281,228,270,217,257,214,242,220,225,234,213,260,198,337,162,497,101"/>
+<area shape="poly" id="edge35_Node000018_Node000014" title=" " alt="" coords="528,102,552,140,547,139,526,107"/>
+<area shape="poly" id="edge39_Node000019_Node000003" title=" " alt="" coords="788,102,806,137,810,158,807,179,797,199,783,217,780,213,792,197,802,178,805,158,801,139,785,107"/>
+<area shape="poly" id="edge37_Node000019_Node000009" title=" " alt="" coords="729,103,484,155,483,150,734,102"/>
+<area shape="poly" id="edge38_Node000019_Node000014" title=" " alt="" coords="745,104,616,150,615,145,739,106"/>
+<area shape="poly" id="edge40_Node000019_Node000017" title=" " alt="" coords="779,103,778,139,774,136,776,107"/>
+</map>
