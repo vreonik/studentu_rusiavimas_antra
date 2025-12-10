@@ -12,7 +12,21 @@
 #else
     #define DEBUG_LOG(msg)
 #endif
+/**
+ * @file studentas.h
+ * @brief Studentas klasės deklaracija
+ * @author Veronika
+ * @version 2.0
+ * @date 2025
+ */
 
+/**
+ * @class Studentas
+ * @brief Studentų duomenų klasė, paveldi iš Zmogus
+ *
+ * Ši klasė saugo studento duomenis ir atlieka skaičiavimus.
+ * Įgyvendina Rule of Five principą.
+ */
 class Studentas : public Zmogus {
 private:
     std::vector<int> nd_;
