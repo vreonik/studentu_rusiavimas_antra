@@ -348,6 +348,12 @@ Pasirinkite režimą:
  cd build
 ./unit_tests
 
+Rezultatai:
+![Terminalas](images/Testai_1.png)
+
+![Terminalas](images/Testai_2.png)
+
+![Terminalas](images/Testai_3.png)
 
 
 Autorius
