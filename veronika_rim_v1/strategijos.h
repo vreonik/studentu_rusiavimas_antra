@@ -4,11 +4,15 @@
 #include <vector>
 #include <list>
 
+/**
+ * @struct TestoRezultatai
+ * @brief Testavimo rezultatų struktūra
+ */
 struct TestoRezultatai {
-    long long skirstymo_laikas;
-    size_t atmintis_vargsiukai;
-    size_t atmintis_kietakiai;
-    size_t atmintis_bendra;
+    long long skirstymo_laikas;  ///< Skirstymo laikas milisekundėmis
+    size_t atmintis_vargsiukai;  ///< Atmintis vargsiukams
+    size_t atmintis_kietakiai;   ///< Atmintis kietakiams
+    size_t atmintis_bendra;      ///< Bendra atmintis
 };
 
 template<typename Container>
