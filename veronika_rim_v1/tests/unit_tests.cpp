@@ -1,11 +1,3 @@
-    /**
-     * @file unit_tests.cpp
-     * @brief Vienetinių testų failas naudojant Google Test
-     *
-     * Šiame faile yra visi vienetiniai testai skirti patikrinti
-     * programos funkcionalumą ir ribines sąlygas.
-     */
-
     #include <gtest/gtest.h>
     #include "studentas.h"
     #include "studentas_struct.h"
@@ -19,10 +11,6 @@
     #include <sstream>
     #include <filesystem>
 
-    /**
-     * @test StudentasTest.DefaultConstructor
-     * @brief Testuoja default konstruktorių
-     */
     TEST(StudentasTest, DefaultConstructor) {
         Studentas s;
         EXPECT_TRUE(s.getVardas().empty());
@@ -30,11 +18,7 @@
         EXPECT_TRUE(s.getNd().empty());
         EXPECT_EQ(s.getEgzas(), 0);
     }
-
-    /**
-     * @test StudentasTest.ParametrizedConstructor
-     * @brief Testuoja parametrizuotą konstruktorių
-     */
+    
     TEST(StudentasTest, ParametrizedConstructor) {
         Studentas s("Jonas", "Jonaitis");
         EXPECT_EQ(s.getVardas(), "Jonas");
@@ -43,10 +27,6 @@
         EXPECT_EQ(s.getEgzas(), 0);
     }
 
-    /**
-     * @test StudentasTest.FullConstructor
-     * @brief Testuoja pilną konstruktorių
-     */
     TEST(StudentasTest, FullConstructor) {
         std::vector<int> nd = {8, 9, 7};
         Studentas s("Ona", "Onaite", nd, 9);
@@ -59,10 +39,6 @@
         EXPECT_EQ(s.getEgzas(), 9);
     }
 
-    /**
-     * @test StudentasTest.CopyConstructor
-     * @brief Testuoja kopijavimo konstruktorių
-     */
     TEST(StudentasTest, CopyConstructor) {
         std::vector<int> nd = {10, 9, 8};
         Studentas s1("Petras", "Petraitis", nd, 8);
@@ -74,10 +50,6 @@
         EXPECT_EQ(s2.getEgzas(), 8);
     }
 
-    /**
-     * @test StudentasTest.MoveConstructor
-     * @brief Testuoja perkėlimo konstruktorių
-     */
     TEST(StudentasTest, MoveConstructor) {
         std::vector<int> nd = {7, 8, 9};
         Studentas s1("Testas", "Testavimas", nd, 10);
@@ -89,10 +61,6 @@
         EXPECT_EQ(s2.getEgzas(), 10);
     }
 
-    /**
-     * @test StudentasTest.AssignmentOperator
-     * @brief Testuoja priskyrimo operatorių
-     */
     TEST(StudentasTest, AssignmentOperator) {
         Studentas s1("A", "A", {8, 9}, 8);
         Studentas s2;
@@ -104,10 +72,6 @@
         EXPECT_GE(s2.getEgzas(), 1);
     }
 
-    /**
-     * @test StudentasTest.AverageCalculation
-     * @brief Testuoja vidurkio skaičiavimą
-     */
     TEST(StudentasTest, AverageCalculation) {
         std::vector<int> nd = {8, 9, 7};
         Studentas s("Vardenis", "Pavardenis", nd, 8);
@@ -118,10 +82,6 @@
         EXPECT_NEAR(actual_avg, expected_avg, 0.001);
     }
 
-    /**
-     * @test StudentasTest.MedianCalculation
-     * @brief Testuoja medianos skaičiavimą
-     */
     TEST(StudentasTest, MedianCalculation) {
         std::vector<int> nd = {8, 10, 7, 9, 6};
         Studentas s("Test", "User", nd, 8);
@@ -132,10 +92,6 @@
         EXPECT_NEAR(actual_median, expected_median, 0.001);
     }
 
-    /**
-     * @test StudentasTest.FinalGradeCalculation
-     * @brief Testuoja galutinių pažymių skaičiavimą
-     */
     TEST(StudentasTest, FinalGradeCalculation) {
         std::vector<int> nd = {8, 9, 7};
         Studentas s("Student", "Test", nd, 8);
@@ -148,10 +104,6 @@
         EXPECT_NEAR(med, expected_med, 0.001);
     }
 
-    /**
-     * @test StudentasTest.ComparisonOperators
-     * @brief Testuoja palyginimo operatorius
-     */
     TEST(StudentasTest, ComparisonOperators) {
         Studentas s1("A", "A", {8, 9}, 8);
         Studentas s2("B", "B", {7, 8}, 8);
@@ -162,10 +114,6 @@
         EXPECT_FALSE(s1 == s2);
     }
 
-    /**
-     * @test StudentasTest.SettersAndGetters
-     * @brief Testuoja setter'ius ir getter'ius
-     */
     TEST(StudentasTest, SettersAndGetters) {
         Studentas s;
         
@@ -183,10 +131,6 @@
         EXPECT_EQ(s.getNd()[2], 8);
     }
 
-    /**
-     * @test StudentasTest.StreamingOperators
-     * @brief Testuoja įvesties/išvesties operatorius
-     */
     TEST(StudentasTest, StreamingOperators) {
         Studentas s("Testas", "Output", {8, 9}, 8);
         std::ostringstream oss;
@@ -206,10 +150,6 @@
         EXPECT_GE(s2.getEgzas(), 1);
     }
 
-    /**
-     * @test StudentasStructTest.StructOperations
-     * @brief Testuoja struct versijos operacijas
-     */
     TEST(StudentasStructTest, StructOperations) {
         StudentasStruct s;
         s.vardas = "Jonas";
@@ -227,10 +167,6 @@
         EXPECT_NEAR(vid, expected_vid, 0.001);
     }
 
-    /**
-     * @test StudentasStructTest.StructMedian
-     * @brief Testuoja struct medianos skaičiavimą
-     */
     TEST(StudentasStructTest, StructMedian) {
         StudentasStruct s;
         s.nd = {8, 10, 7, 9, 6};
@@ -238,10 +174,6 @@
         EXPECT_NEAR(med, 8.0, 0.001);
     }
 
-    /**
-     * @test StrategijosTest.Strategija1_Vector_Basic
-     * @brief Testuoja Strategiją 1 vektoriams
-     */
     TEST(StrategijosTest, Strategija1_Vector_Basic) {
         std::vector<Studentas> visi = {
             Studentas("A", "A", {8, 9}, 8),
@@ -258,10 +190,6 @@
         EXPECT_GE(rez.skirstymo_laikas, 0);
     }
 
-    /**
-     * @test StrategijosTest.Strategija1_List_Basic
-     * @brief Testuoja Strategiją 1 sąrašams
-     */
     TEST(StrategijosTest, Strategija1_List_Basic) {
         std::list<Studentas> visi = {
             Studentas("A", "A", {8, 9}, 8),
@@ -276,10 +204,6 @@
         EXPECT_EQ(kietakiai.size(), 2);
     }
 
-    /**
-     * @test StrategijosTest.Strategija2_Vector
-     * @brief Testuoja Strategiją 2 vektoriams
-     */
     TEST(StrategijosTest, Strategija2_Vector) {
         std::vector<Studentas> visi = {
             Studentas("A", "A", {8, 9}, 8),
@@ -294,10 +218,6 @@
         EXPECT_EQ(visi.size(), 2);
     }
 
-    /**
-     * @test StrategijosTest.Strategija3_Vector
-     * @brief Testuoja Strategiją 3 vektoriams
-     */
     TEST(StrategijosTest, Strategija3_Vector) {
         std::vector<Studentas> visi = {
             Studentas("A", "A", {8, 9}, 8),
@@ -312,10 +232,7 @@
         EXPECT_EQ(visi.size(), 2);
     }
 
-    /**
-     * @test EdgeCaseTest.EmptyStudentList
-     * @brief Testuoja tuščią studentų sąrašą
-     */
+
     TEST(EdgeCaseTest, EmptyStudentList) {
         std::vector<Studentas> visi;
         std::vector<Studentas> vargsiukai, kietakiai;
@@ -326,10 +243,6 @@
         EXPECT_EQ(kietakiai.size(), 0);
     }
 
-    /**
-     * @test EdgeCaseTest.AllStudentsFail
-     * @brief Testuoja atvejį, kai visi studentai neišlaiko
-     */
     TEST(EdgeCaseTest, AllStudentsFail) {
         std::vector<Studentas> visi = {
             Studentas("A", "A", {4, 4}, 4),
@@ -344,10 +257,6 @@
         EXPECT_EQ(kietakiai.size(), 0);
     }
 
-    /**
-     * @test EdgeCaseTest.AllStudentsPass
-     * @brief Testuoja atvejį, kai visi studentai išlaiko
-     */
     TEST(EdgeCaseTest, AllStudentsPass) {
         std::vector<Studentas> visi = {
             Studentas("A", "A", {8, 9}, 8),
@@ -362,10 +271,7 @@
         EXPECT_EQ(kietakiai.size(), 3);
     }
 
-    /**
-     * @test EdgeCaseTest.SingleStudent
-     * @brief Testuoja vieno studento atvejį
-     */
+
     TEST(EdgeCaseTest, SingleStudent) {
         std::vector<Studentas> visi = {
             Studentas("Vienas", "Studentas", {5, 5}, 5)
@@ -378,10 +284,6 @@
         EXPECT_EQ(kietakiai.size(), 1);
     }
 
-    /**
-     * @test UtilTest.BePriesdelioFunction
-     * @brief Testuoja be_priesdelio() funkciją
-     */
     TEST(UtilTest, BePriesdelioFunction) {
         EXPECT_EQ(be_priesdelio("failas.txt"), "failas");
         EXPECT_EQ(be_priesdelio("data.csv"), "data");
@@ -389,10 +291,6 @@
         EXPECT_EQ(be_priesdelio(""), "");
     }
 
-    /**
-     * @test NuskaitytiTest.CreateAndReadFile
-     * @brief Testuoja failo sukūrimą ir skaitymą
-     */
     TEST(NuskaitytiTest, CreateAndReadFile) {
         std::ofstream test_file("test_nuskaityti.txt");
         test_file << "Vardas Pavarde ND1 ND2 ND3 Egzaminas\n";
@@ -406,10 +304,6 @@
         std::remove("test_nuskaityti.txt");
     }
 
-    /**
-     * @test FileGenerationTest.GenerateFile
-     * @brief Testuoja failo generavimą
-     */
     TEST(FileGenerationTest, GenerateFile) {
         generuoti_faila(5, "test_generated.txt", 3);
         
@@ -425,12 +319,6 @@
         std::remove("test_generated.txt");
     }
 
-    /**
-     * @brief Pagrindinė testų funkcija
-     * @param argc Argumentų skaičius
-     * @param argv Argumentų masyvas
-     * @return Testų rezultatas
-     */
     int main(int argc, char **argv) {
         ::testing::InitGoogleTest(&argc, argv);
         
