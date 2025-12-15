@@ -73,7 +73,7 @@
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         if (rez == 'd' || rez == 'D') {
-            demonstruotiVisusRežimus();
+            demonstruotiVisusRezimus();
             return 0;
         }
 

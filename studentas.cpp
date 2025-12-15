@@ -411,7 +411,7 @@
     /**
      * @brief Demonstruoti rankinį įvedimą
      */
-    void demonstruotiRankiniĮvedimą() {
+    void demonstruotiRankiniIvedima() {
         std::cout << "\n=== RANKINIS ĮVEDIMAS ===\n";
         
         Studentas studentas;
@@ -425,7 +425,7 @@
     /**
      * @brief Demonstruoti automatinį generavimą
      */
-    void demonstruotiAutomatiniGeneravimą() {
+    void demonstruotiAutomatiniGeneravima() {
         std::cout << "\n=== AUTOMATINIS GENERAVIMAS ===\n";
         
         Studentas studentas("Generated", "Student");
@@ -438,7 +438,7 @@
     /**
      * @brief Demonstruoti įvestį iš failo
      */
-    void demonstruotiĮvestįIšFailo() {
+    void demonstruotiIvestiIsFailo() {
         std::cout << "\n=== ĮVESTIS IŠ FAILO ===\n";
         
         std::string failoVardas = "demo_studentai.txt";
@@ -508,7 +508,7 @@
     /**
      * @brief Demonstruoti išvestį į failą
      */
-    void demonstruotiIšvestįĮFailą() {
+    void demonstruotiIsvestiIFaila() {
         std::cout << "\n=== IŠVESTIS Į FAILĄ ===\n";
         
         std::vector<Studentas> studentai;
@@ -570,7 +570,7 @@
     /**
      * @brief Paleisti visus režimus iš eilės
      */
-    void paleistiVisusRežimus() {
+    void paleistiVisusRezimus() {
         std::cout << "\n===== VISI REŽIMAI IŠ EILĖS =====\n";
         
         std::cout << "\n1. ABSTRAKCIOS KLASĖS DEMONSTRAVIMAS:\n";
@@ -580,16 +580,16 @@
         demonstruotiRuleOfThree();
         
         std::cout << "\n3. RANKINIS ĮVEDIMAS:\n";
-        demonstruotiRankiniĮvedimą();
+        demonstruotiRankiniIvedima();
         
         std::cout << "\n4. AUTOMATINIS GENERAVIMAS:\n";
-        demonstruotiAutomatiniGeneravimą();
+        demonstruotiAutomatiniGeneravima();
         
         std::cout << "\n5. ĮVESTIS IŠ FAILO:\n";
-        demonstruotiĮvestįIšFailo();
+        demonstruotiIvestiIsFailo();
         
         std::cout << "\n6. IŠVESTIS Į FAILĄ:\n";
-        demonstruotiIšvestįĮFailą();
+        demonstruotiIsvestiIFaila();
         
         std::cout << "\n VISI REŽIMAI SĖKMINGAI PABAIGTI!\n";
     }
@@ -597,7 +597,7 @@
     /**
      * @brief Demonstruoti visus režimus su meniu
      */
-    void demonstruotiVisusRežimus() {
+    void demonstruotiVisusRezimus() {
         std::cout << "\n===== VISI ĮVEDIMO/IŠVEDIMO BŪDAI =====\n\n";
         
         int pasirinkimas;
@@ -624,19 +624,19 @@
                     demonstruotiAbstrakciaKlase();
                     break;
                 case 3:
-                    demonstruotiRankiniĮvedimą();
+                    demonstruotiRankiniIvedima();
                     break;
                 case 4:
-                    demonstruotiAutomatiniGeneravimą();
+                    demonstruotiAutomatiniGeneravima();
                     break;
                 case 5:
-                    demonstruotiĮvestįIšFailo();
+                    demonstruotiIvestiIsFailo();
                     break;
                 case 6:
-                    demonstruotiIšvestįĮFailą();
+                    demonstruotiIsvestiIFaila();
                     break;
                 case 7:
-                    paleistiVisusRežimus();
+                    paleistiVisusRezimus();
                     break;
                 case 0:
                     std::cout << "Grįžtama į pagrindinį meniu...\n";

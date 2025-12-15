@@ -130,14 +130,14 @@
     /// @brief Demonstruoti abstrakčios klasės naudojimą
     void demonstruotiAbstrakciaKlase();
     /// @brief Demonstruoti visus režimus
-    void demonstruotiVisusRežimus();
+    void demonstruotiVisusRezimus();
     /// @brief Demonstruoti rankinį įvedimą
-    void demonstruotiRankiniĮvedimą();
+    void demonstruotiRankiniIvedima();
     /// @brief Demonstruoti automatinį generavimą
-    void demonstruotiAutomatiniGeneravimą();
+    void demonstruotiAutomatiniGeneravima();
     /// @brief Demonstruoti įvestį iš failo
-    void demonstruotiĮvestįIšFailo();
+    void demonstruotiIvestiIsFailo();
     /// @brief Demonstruoti išvestį į failą
-    void demonstruotiIšvestįĮFailą();
+    void demonstruotiIsvestiIFaila();
     /// @brief Paleisti visus režimus iš eilės
-    void paleistiVisusRežimus();
+    void paleistiVisusRezimus();
