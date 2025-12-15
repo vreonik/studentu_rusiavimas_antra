@@ -1,21 +1,17 @@
-cmake_minimum_required(VERSION 3.10)
-project(StudentuRusiavimas VERSION 2.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.20)
+project(StudentuRusiavimoSistema VERSION 3.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-if(MSVC)
+# Windows specific settings
+if(WIN32)
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS UNICODE _UNICODE)
     add_compile_options(/W4 /WX)
-else()
-    add_compile_options(-Wall -Wextra -Wpedantic -Wno-unused-but-set-variable)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:CONSOLE")
 endif()
 
-find_package(GTest REQUIRED)
-find_package(Threads REQUIRED)
-
-#Main program
-add_executable(studentu_rusiavimas
+add_executable(studentu-rusiavimo-sistema
     main.cpp
     studentas.cpp
     studentas_struct.cpp
@@ -27,33 +23,53 @@ add_executable(studentu_rusiavimas
     util.cpp
     zmogus.cpp
     test_struct_vs_class.cpp
-    failu_generavimas.cpp
 )
 
-target_include_directories(studentu_rusiavimas PRIVATE .)
-
-#Unit tests
-add_executable(unit_tests
-    tests/unit_tests.cpp
-    studentas.cpp
-    studentas_struct.cpp
-    strategijos.cpp
-    nuskaityti.cpp
-    apdorojimas.cpp
-    util.cpp
-    zmogus.cpp
-    failu_generavimas.cpp
+target_include_directories(studentu-rusiavimo-sistema PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_include_directories(unit_tests PRIVATE .)
-target_link_libraries(unit_tests GTest::gtest GTest::gtest_main Threads::Threads)
+set_target_properties(studentu-rusiavimo-sistema PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin"
+)
 
-enable_testing()
-add_test(NAME UnitTests COMMAND unit_tests)
+option(BUILD_TESTS "Build unit tests" ON)
 
-install(TARGETS studentu_rusiavimas DESTINATION bin)
-install(TARGETS unit_tests DESTINATION bin)
-
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
-    install(FILES README.md DESTINATION docs)
+if(BUILD_TESTS)
+    find_package(GTest QUIET)
+    
+    if(GTest_FOUND)
+        message(STATUS "Google Test found, building tests")
+        
+        add_executable(unit_tests
+            tests/unit_tests.cpp
+            studentas.cpp
+            studentas_struct.cpp
+            strategijos.cpp
+            nuskaityti.cpp
+            apdorojimas.cpp
+            util.cpp
+            zmogus.cpp
+            failu_generavimas.cpp
+        )
+        
+        target_include_directories(unit_tests PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}
+            ${CMAKE_CURRENT_SOURCE_DIR}/include
+        )
+        
+        target_link_libraries(unit_tests GTest::gtest GTest::gtest_main)
+        
+        add_test(NAME UnitTests COMMAND unit_tests)
+        
+        set_target_properties(unit_tests PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        )
+        
+    else()
+        message(WARNING "Google Test not found, skipping tests")
+    endif()
 endif()

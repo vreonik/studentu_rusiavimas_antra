@@ -1,0 +1,37 @@
+name: Build Studentų Rūšiavimo Sistema v3.0
+
+on:
+  push:
+    branches: [main, v3.0]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      
+    - uses: microsoft/setup-msbuild@v2
+      
+    - run: choco install innosetup -y
+      
+    - run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DBUILD_TESTS=OFF
+      
+    - run: cmake --build build --config Release
+      
+    - run: |
+        mkdir build\bin 2>nul
+        if exist "build\bin\Release\studentu-rusiavimo-sistema.exe" (
+            copy "build\bin\Release\studentu-rusiavimo-sistema.exe" "build\bin\"
+        ) elseif exist "build\Release\studentu-rusiavimo-sistema.exe" (
+            copy "build\Release\studentu-rusiavimo-sistema.exe" "build\bin\"
+        ) elseif exist "build\studentu-rusiavimo-sistema.exe" (
+            copy "build\studentu-rusiavimo-sistema.exe" "build\bin\"
+        )
+      
+    - run: "\"C:\Program Files (x86)\Inno Setup 6\ISCC.exe\" installer/setup.iss"
+      
+    - uses: actions/upload-artifact@v4
+      with:
+        name: Setup
+        path: dist\*.exe

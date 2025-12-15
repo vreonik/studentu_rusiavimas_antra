@@ -1,1 +1,6 @@
-Icon
+build/
+dist/
+*.exe
+*.pdb
+*.ilk
+*.obj
