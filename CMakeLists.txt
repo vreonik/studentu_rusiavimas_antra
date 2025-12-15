@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Windows specific settings
 if(WIN32)
     add_compile_definitions(_CRT_SECURE_NO_WARNINGS UNICODE _UNICODE)
-    add_compile_options(/W4 /WX)
+    add_compile_options(/W4)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:CONSOLE")
 endif()
 
