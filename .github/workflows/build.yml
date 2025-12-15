@@ -3,35 +3,62 @@ name: Build Studentų Rūšiavimo Sistema v3.0
 on:
   push:
     branches: [main, v3.0]
+  release:
+    types: [created]
 
 jobs:
   build-windows:
     runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
       
-    - uses: microsoft/setup-msbuild@v2
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
       
-    - run: choco install innosetup -y
+    - name: Install Inno Setup
+      run: choco install innosetup -y
       
-    - run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DBUILD_TESTS=OFF
+    - name: Configure CMake (without tests)
+      run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DBUILD_TESTS=OFF
       
-    - run: cmake --build build --config Release
+    - name: Build project
+      run: cmake --build build --config Release
       
-    - run: |
+    - name: Stage outputs for installer
+      shell: cmd
+      run: |
+        echo "=== Preparing files for installer ==="
         mkdir build\bin 2>nul
+        
+        # Look for executable
         if exist "build\bin\Release\studentu-rusiavimo-sistema.exe" (
+            echo "Found in build\bin\Release\"
             copy "build\bin\Release\studentu-rusiavimo-sistema.exe" "build\bin\"
         ) elseif exist "build\Release\studentu-rusiavimo-sistema.exe" (
+            echo "Found in build\Release\"
             copy "build\Release\studentu-rusiavimo-sistema.exe" "build\bin\"
         ) elseif exist "build\studentu-rusiavimo-sistema.exe" (
+            echo "Found in build\"
             copy "build\studentu-rusiavimo-sistema.exe" "build\bin\"
+        ) else (
+            echo "ERROR: Executable not found!"
+            dir /s *.exe
+            exit 1
         )
-      
-    - run: "\"C:\Program Files (x86)\Inno Setup 6\ISCC.exe\" installer/setup.iss"
-      
-    - uses: actions/upload-artifact@v4
+        
+        echo "=== Verification ==="
+        dir build\bin
+        
+    - name: Create Windows Installer
+      shell: pwsh
+      run: |
+        $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+        & "$iscc" "installer/setup.iss"
+        
+    - name: Upload Installer Artifact
+      uses: actions/upload-artifact@v4
       with:
-        name: Setup
-        path: dist\*.exe
+        name: StudentuRusiavimoSistema-Setup
+        path: dist/*.exe

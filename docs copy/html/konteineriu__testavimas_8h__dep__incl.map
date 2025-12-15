@@ -1,7 +1,0 @@
-<map id="konteineriu_testavimas.h" name="konteineriu_testavimas.h">
-<area shape="rect" id="Node000001" title="Funkcijos konteinerių palyginimo testavimui." alt="" coords="88,5,255,31"/>
-<area shape="rect" id="Node000002" href="$konteineriu__testavimas_8cpp.html" title="Konteinerių testavimo implementacijos." alt="" coords="5,79,186,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,41,110,81,107,76,145,43"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Pagrindinė programos dalis su meniu ir testavimo funkcijomis." alt="" coords="210,79,285,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,39,237,79,232,78,194,44"/>
-</map>
