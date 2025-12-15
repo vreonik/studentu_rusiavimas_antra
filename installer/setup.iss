@@ -13,7 +13,6 @@ DefaultDirName={autopf}\{#MyDirName}
 DefaultGroupName=VU\Veronika-Rimkeviciute
 OutputDir=..\dist
 OutputBaseFilename=StudentuRusiavimoSistema_Setup
-SetupIconFile=icon.ico
 Compression=lzma2
 SolidCompression=yes
 PrivilegesRequired=admin
