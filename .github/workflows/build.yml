@@ -30,26 +30,33 @@ jobs:
       shell: cmd
       run: |
         echo "=== Preparing files for installer ==="
-        mkdir build\bin 2>nul
         
-        echo "Looking for executable..."
-        if exist "build\bin\Release\studentu-rusiavimo-sistema.exe" (
-          echo "Found in build\bin\Release\"
-          copy "build\bin\Release\studentu-rusiavimo-sistema.exe" "build\bin\"
-        ) else if exist "build\Release\studentu-rusiavimo-sistema.exe" (
-          echo "Found in build\Release\"
-          copy "build\Release\studentu-rusiavimo-sistema.exe" "build\bin\"
-        ) else if exist "build\studentu-rusiavimo-sistema.exe" (
-          echo "Found in build\"
-          copy "build\studentu-rusiavimo-sistema.exe" "build\bin\"
+        echo "Current directory:"
+        cd
+        dir
+        
+        echo "Checking build directory..."
+        dir build\
+        
+        echo "Checking build\bin..."
+        dir build\bin\
+        
+        echo "Checking build\Release..."
+        dir build\Release\
+        
+        echo "Copying executable..."
+        if exist "build\bin\studentu-rusiavimo-sistema.exe" (
+          echo "Found in build\bin\"
+          mkdir Release 2>nul
+          copy "build\bin\studentu-rusiavimo-sistema.exe" "Release\"
         ) else (
-          echo "ERROR: Executable not found!"
+          echo "ERROR: Executable not found in build\bin\"
           dir /s *.exe
           exit 1
         )
         
         echo "=== Verification ==="
-        dir build\bin
+        dir Release\
         
     - name: Create Windows Installer
       shell: pwsh
